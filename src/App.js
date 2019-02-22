@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import {Switch, Route} from 'react-router-dom';
-import Menu from './views/tests/Menu';
+import Home from './views/HomePage';
+import Model from './views/ModelPage';
+import Wrapper from './views/Wrapper';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-				<Menu />
+      <div>
+        <Wrapper />
       </div>
     );
   }

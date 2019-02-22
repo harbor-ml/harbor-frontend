@@ -20,13 +20,13 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import Display from './Display.js';
+import Display from './Displays/Display.js';
 import {Link} from 'react-router-dom';
-import ListItemLink from './ListItemLink';
+import ListItemLink from './Components/ListItemLink';
 import {styles} from './Styles';
 
 
-class MiniDrawer extends React.Component {
+class Wrapper extends React.Component {
   state = {
     open: false,
   };
@@ -63,7 +63,7 @@ class MiniDrawer extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" noWrap>
-              Harbor Dashboard
+              Harbor
             </Typography>
           </Toolbar>
         </AppBar>
@@ -88,22 +88,10 @@ class MiniDrawer extends React.Component {
           </div>
           <Divider />
           <List>
-            <ListItem button key={"Home"} >
-              <ListItemIcon><HomeIcon /></ListItemIcon>
-              <ListItemText primary={"Home"} />
-            </ListItem>
+            <ListItemLink to="/" icon={<HomeIcon />} primary="Home" />
+            <ListItemLink to="/Models" icon={<SearchIcon />} primary="Search" />
           </List>
           <Divider />
-          <List>
-            <ListItem button key={"Search"} >
-              <ListItemIcon><SearchIcon /></ListItemIcon>
-              <ListItemText primary={"Search"} />
-            </ListItem>
-            <ListItem button key={"Settings"} >
-              <ListItemIcon><SettingsIcon /></ListItemIcon>
-              <ListItemText primary={"Settings"} />
-            </ListItem>
-          </List>
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
@@ -114,9 +102,9 @@ class MiniDrawer extends React.Component {
   }
 }
 
-MiniDrawer.propTypes = {
+Wrapper.propTypes = {
   classes: PropTypes.object.isRequired,
   theme: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(MiniDrawer);
+export default withStyles(styles, { withTheme: true })(Wrapper);

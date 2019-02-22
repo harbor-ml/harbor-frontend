@@ -16,7 +16,11 @@ class Display extends Component {
   render() {
     return (
       <div>
-        <Dashboard />
+        <Switch>
+          <Route exact path="/" component={Dashboard}/>
+          <Route exact path="/search" component={Search}/>
+          <Route exact path="/settings" component={Settings}/>
+        </Switch>
       </div>
     );
   }
