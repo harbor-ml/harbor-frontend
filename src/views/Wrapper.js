@@ -20,8 +20,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import Display from './Displays/Display.js';
-import {Link} from 'react-router-dom';
+import Display2 from './Displays/Display2';
+import {Link, Route, Switch} from 'react-router-dom';
 import ListItemLink from './Components/ListItemLink';
 import {styles} from './Styles';
 
@@ -95,7 +95,9 @@ class Wrapper extends React.Component {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Display />
+          <Switch>
+            <Route exact path="/" component={Display2} />
+          </Switch>
         </main>
       </div>
     );
