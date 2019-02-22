@@ -5,9 +5,9 @@ Repository for Harbor Frontend
 ## Instructions:
 
 - If you don't have node and/or npm installed, do that first.
-- To set up locally, clone the repo and in terminal enter 'npm install'
+- To set up locally, clone the repo and in terminal enter `npm install`
 - If you run into any dependency errors, we can deal with them later (not a big deal)
-- Enter 'npm start' and then play around with it!
+- Enter `npm start` and then play around with it!
 ______
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
