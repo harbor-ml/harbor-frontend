@@ -20,70 +20,11 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-const drawerWidth = 240;
+import Display from './Display.js';
+import {Link} from 'react-router-dom';
+import ListItemLink from './ListItemLink';
+import {styles} from './Styles';
 
-const styles = theme => ({
-  root: {
-    display: 'flex'
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    backgroundColor: '#2053AB'
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  menuButton: {
-    marginLeft: 12,
-    marginRight: 36,
-  },
-  hide: {
-    display: 'none',
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0,
-    whiteSpace: 'nowrap',
-  },
-  drawerOpen: {
-    width: drawerWidth,
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  },
-  drawerClose: {
-    transition: theme.transitions.create('width', {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-    overflowX: 'hidden',
-    width: theme.spacing.unit * 7 + 1,
-    [theme.breakpoints.up('sm')]: {
-      width: theme.spacing.unit * 9 + 1,
-    },
-  },
-  toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar,
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing.unit * 3,
-  }
-});
 
 class MiniDrawer extends React.Component {
   state = {
@@ -147,18 +88,18 @@ class MiniDrawer extends React.Component {
           </div>
           <Divider />
           <List>
-            <ListItem button key={"Home"}>
+            <ListItem button key={"Home"} >
               <ListItemIcon><HomeIcon /></ListItemIcon>
               <ListItemText primary={"Home"} />
             </ListItem>
           </List>
           <Divider />
           <List>
-            <ListItem button key={"Search"}>
+            <ListItem button key={"Search"} >
               <ListItemIcon><SearchIcon /></ListItemIcon>
               <ListItemText primary={"Search"} />
             </ListItem>
-            <ListItem button key={"Settings"}>
+            <ListItem button key={"Settings"} >
               <ListItemIcon><SettingsIcon /></ListItemIcon>
               <ListItemText primary={"Settings"} />
             </ListItem>
@@ -166,7 +107,7 @@ class MiniDrawer extends React.Component {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          
+          <Display />
         </main>
       </div>
     );
