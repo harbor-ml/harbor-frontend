@@ -33,7 +33,6 @@ class Display2 extends React.Component {
       <Grid item xs={12} sm={6} md={4} lg={4}>
         <Link to={"/Model/" + val}>
           <Paper className={classes.paper}>
-
             Model: {val}
           </Paper>
         </Link>
