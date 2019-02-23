@@ -12,8 +12,11 @@ Repository for Harbor Frontend
 ## Technology Used/Purposes:
 - React: Dynamic website capabilities
 - Redux: Allows state to be shared between components
+  - Reducers/Actions in src/redux allow us to edit that overall state and also
+    do HTTP requests in an organized manner
 - Thunk: Middleware for Redux to handle actions (see src/redux)
 - Material-UI: Solid CSS styler around React components
+
 ______
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
