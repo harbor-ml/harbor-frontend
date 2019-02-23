@@ -13,15 +13,10 @@ import IconButton from '@material-ui/core/IconButton';
 import HomeIcon from '@material-ui/icons/Home';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
-import SettingsIcon from '@material-ui/icons/Settings';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 
-import Display2 from './Displays/Display2';
-import {Link, Route, Switch} from 'react-router-dom';
+import Display from './Displays/Display';
 import ListItemLink from './Components/ListItemLink';
 import {styles} from './Styles';
 
@@ -95,9 +90,7 @@ class Wrapper extends React.Component {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Switch>
-            <Route exact path="/" component={Display2} />
-          </Switch>
+          <Display />
         </main>
       </div>
     );

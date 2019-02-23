@@ -1,63 +1,75 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import Typography from '@material-ui/core/Typography';
+import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
+import {getModels, initialLoad, selectModel} from '../../redux/actions';
 
 const styles = theme => ({
   root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-    overflowY: 'hidden'
+    flexGrow: 1,
   },
-  gridList: {
-    width: '90%',
-    height: '100%'
+  paper: {
+    padding: theme.spacing.unit * 2,
+    color: theme.palette.text.secondary,
+    height: 380
   },
-  icon: {
-    color: 'rgba(255, 255, 255, 0.54)',
-  },
-  tile: {
-    backgroundColor: theme.palette.background.paper
-  }
 });
 
-const Dashboard = (props) => {
-  const { classes } = props;
+class Dashboard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.setLoaded = this.setLoaded.bind(this);
+  }
 
-  const randomList = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+  componentDidMount() {
+    // Fill this in with GET Request to API
+    if (!this.props.loaded) {
+        this.props.initialLoad();
+    }
+  }
 
-  return (
-    <div className={classes.root}>
-      <GridList cellHeight={400} cols={3} spacing={4} className={classes.gridList}>
-        {randomList.map(data =>
-          <GridListTile className={classes.tile} cols={1} rows={1} key={data}>
-            <Typography variant="h4" color="inherit" noWrap>A Model</Typography>
-            <GridListTileBar
-              title={"Model"}
-              subtitle={data}
-              actionIcon={
-                <IconButton className={classes.icon}>
-                  <InfoIcon />
-                </IconButton>
-              }
-            />
-          </GridListTile>
-        )}
-      </GridList>
-    </div>
-  );
+  setLoaded(e, val) {
+    this.props.selectModel(val);
+  }
+
+  render() {
+    const { classes } = this.props;
+
+    const renderedModels = this.props.models.map( (val, index) =>
+      <Grid
+          onClick={(e) => this.setLoaded(e, val)}
+          key={index} item xs={12} sm={6} md={4} lg={4}>
+        <Link to={"/Model/" + val}>
+          <Paper className={classes.paper}>
+            Model: {val}
+          </Paper>
+        </Link>
+      </Grid>
+    );
+
+    return (
+      <div className={classes.root}>
+        <Grid container spacing={24}>
+          {renderedModels}
+        </Grid>
+      </div>
+    );
+  }
 }
 
 Dashboard.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(Dashboard);
+const mapStateToProps = (reduxState) => {
+  return {
+    loaded: reduxState.loaded,
+    models: reduxState.models
+  }
+};
+
+const functions = {getModels, initialLoad, selectModel};
+export default connect(mapStateToProps, functions)(withStyles(styles)(Dashboard));
