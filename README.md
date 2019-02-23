@@ -8,6 +8,12 @@ Repository for Harbor Frontend
 - To set up locally, clone the repo and in terminal enter `npm install`
 - If you run into any dependency errors, we can deal with them later (not a big deal)
 - Enter `npm start` and then play around with it!
+
+## Technology Used/Purposes:
+- React: Dynamic website capabilities
+- Redux: Allows state to be shared between components
+- Thunk: Middleware for Redux to handle actions (see src/redux)
+- Material-UI: Solid CSS styler around React components
 ______
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
