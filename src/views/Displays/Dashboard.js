@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getModels, initialLoad, selectModel} from '../../redux/actions';
@@ -14,7 +15,8 @@ const styles = theme => ({
   paper: {
     padding: theme.spacing.unit * 2,
     color: theme.palette.text.secondary,
-    height: 380
+    height: 380,
+    textDecoration: "None"
   },
 });
 
@@ -42,9 +44,10 @@ class Dashboard extends React.Component {
       <Grid
           onClick={(e) => this.setLoaded(e, val)}
           key={index} item xs={12} sm={6} md={4} lg={4}>
-        <Link to={"/Model/" + val}>
+        <Link to={"/Model/" + val.id} style={{textDecoration: "None"}}>
           <Paper className={classes.paper}>
-            Model: {val}
+            <Typography variant="h4">{val.title}</Typography><br/>
+            <Typography variant="h5">{val.description}</Typography>
           </Paper>
         </Link>
       </Grid>

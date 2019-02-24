@@ -1,6 +1,6 @@
-# Harbor Frontend
+# Harbor
 
-Repository for Harbor Frontend
+Repository for Harbor
 
 ## Instructions:
 
@@ -16,6 +16,13 @@ Repository for Harbor Frontend
     do HTTP requests in an organized manner
 - Thunk: Middleware for Redux to handle actions (see src/redux)
 - Material-UI: Solid CSS styler around React components
+
+## Todos:
+- Frontend
+  - define https requests and render in react webapp
+- Backend
+  - description of model, url for requests, params
+  - Decide on what stack to use: mongo/express/mongoose or sql/django/flask
 
 ______
 

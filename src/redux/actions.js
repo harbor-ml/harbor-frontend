@@ -37,7 +37,38 @@ export function initialLoad() {
     // GET request for model info done here
 
     // For right now we will have values set
-    var models = [12, 24, 53, 64, 15]
+    var models = [{
+        id: 1,
+        title: "GPT2 Model",
+        description: "Fill in the starting text box with a phrase and let AI " +
+        "autocomplete it for you. Pretrained Model provided by pytorch-pretrained" +
+        "-bert.",
+        params: {
+          "text": "text",
+          "num_words": "number",
+          "num_tries": "number"
+        }
+      }, {
+        id: 24,
+        title: "TBD Model",
+        description: "TBD description",
+        params: {}
+      }, {
+        id: 53,
+        title: "TBD Model",
+        description: "TBD description",
+        params: {}
+      }, {
+        id: 64,
+        title: "TBD Model",
+        description: "TBD description",
+        params: {}
+      }, {
+        id: 15,
+        title: "TBD Model",
+        description: "TBD description",
+        params: {}
+      }];
 
     dispatch(handleInitialLoad(models));
   };
