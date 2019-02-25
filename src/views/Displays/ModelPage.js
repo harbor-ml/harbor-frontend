@@ -48,7 +48,7 @@ class Model extends Component {
         <Typography variant="h5">{model.description}</Typography>
         <br /><Divider /><br />
         <Typography variant="h5">Demo:</Typography><br />
-        <InputFields />
+        <InputFields modelParams={{...model.params, url: model.url}}/>
       </div>
     );
   }

@@ -4,6 +4,9 @@ import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import axios from 'axios';
+import _ from 'lodash';
 
 const styles = theme => ({
   container: {
@@ -22,45 +25,71 @@ const styles = theme => ({
   },
 });
 
+const buttonStyles = theme => ({
+  margin: {
+    margin: theme.spacing.unit,
+  },
+  extendedIcon: {
+    marginRight: theme.spacing.unit,
+  },
+});
+
+const CustomButton = (props) => {
+  const {classes} = props;
+  const {clickFunction} = props;
+  return (
+    <div>
+      <Button variant="outlined" onClick={clickFunction} size="medium" color="primary" className={classes.margin}>
+        Submit
+      </Button>
+    </div>
+  );
+};
+
+CustomButton.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+const SubmitButton = withStyles(buttonStyles)(CustomButton);
+
 class InputFields extends React.Component {
-  state = {
-    text: '',
-    num_tries: 0,
-    num_words: 0,
-    multiline: 'Controlled'
-  };
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
+    this.decideHTMLComponent = this.decideHTMLComponent.bind(this);
+    this.submit = this.submit.bind(this);
+    this.state = {
+      ...this.props.modelParams,
+      output: "Result"
+    }
+  }
 
-  handleChange = name => event => {
-    this.setState({
-      [name]: event.target.value,
-    });
-  };
-
-  render() {
-    const { classes } = this.props;
-
-    return (
-      <form className={classes.container} noValidate autoComplete="off">
+  decideHTMLComponent(param, classes, inputType, key) {
+    if (inputType === "text") {
+      return (
         <TextField
+          key={key}
           id="outlined-textarea"
-          label="Text Input"
+          label={param}
           placeholder="Type whatever you want"
           multiline
           fullWidth
           className={classes.textField}
-          onChange={this.handleChange('text')}
+          onChange={this.handleChange(param)}
           margin="normal"
           variant="outlined"
           InputLabelProps={{
             shrink: true,
           }}
         />
-
+      );
+    } else if (inputType === "number") {
+      return (
         <TextField
+          key={key}
           id="outlined-number"
-          label="Number of Words"
-          value={this.state.age}
-          onChange={this.handleChange('num_words')}
+          label={param}
+          onChange={this.handleChange(param)}
           type="number"
           className={classes.textField}
           InputLabelProps={{
@@ -69,26 +98,66 @@ class InputFields extends React.Component {
           margin="normal"
           variant="outlined"
         />
+      );
+    }
+    return null;
+  }
 
-        <TextField
-          id="outlined-number"
-          label="Number of Tries"
-          value={this.state.age}
-          onChange={this.handleChange('num_tries')}
-          type="number"
-          className={classes.textField}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          margin="normal"
-          variant="outlined"
-        />
+  handleChange(name) {
+    return (event) => {
+      this.setState({
+        ...this.state,
+        [name]: event.target.value,
+      });
+    };
+  }
 
+  submit(event) {
+    console.log(this.state);
+    if (this.state.url === "") {
+      return null;
+    }
+
+    const {url} = this.state;
+    const params = _.omit(this.state, ['url', 'output']);
+    console.log(params);
+
+    axios({
+      method: 'post',
+      url: url,
+      data: params,
+      headers: {
+        "Access-Control-Allow-Origin": "http://localhost:3000"
+      }
+    }).then((response) => {
+      console.log(response);
+    }).catch((e) => {
+      console.log(e);
+    })
+  }
+
+  render() {
+    const { classes } = this.props;
+    const { modelParams } = this.props;
+
+    return (
+      <div>
+      <form className={classes.container} noValidate autoComplete="off">
+        {Object.keys(modelParams).map((key, index) => {
+          var inputType = modelParams[key];
+          return this.decideHTMLComponent(key, classes, inputType, index);
+        })}
+      </form>
+      <div>
+        <SubmitButton clickFunction={this.submit} />
+      </div>
+      <br />
+      <form className={classes.container} noValidate autoComplete="off">
         <TextField
           id="outlined-full-width"
           label="Output"
           style={{ margin: 8 }}
-          placeholder="Result"
+          value={this.state.output}
           multiline
           fullWidth
           margin="normal"
@@ -101,6 +170,7 @@ class InputFields extends React.Component {
           }}
         />
       </form>
+      </div>
     );
   }
 }
