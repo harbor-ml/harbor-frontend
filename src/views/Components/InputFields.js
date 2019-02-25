@@ -123,17 +123,18 @@ class InputFields extends React.Component {
     console.log(params);
 
     axios({
-      method: 'post',
-      url: url,
-      data: params,
-      headers: {
-        "Access-Control-Allow-Origin": "http://localhost:3000"
-      }
+        method: 'post',
+        url: url,
+        data: params,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
     }).then((response) => {
       console.log(response);
     }).catch((e) => {
       console.log(e);
-    })
+    });
   }
 
   render() {
