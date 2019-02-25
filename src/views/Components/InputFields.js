@@ -113,25 +113,25 @@ class InputFields extends React.Component {
   }
 
   submit(event) {
-    console.log(this.state);
+    // console.log(this.state);
     if (this.state.url === "") {
       return null;
     }
 
     const {url} = this.state;
     const params = _.omit(this.state, ['url', 'output']);
-    console.log(params);
+    // console.log(params);
 
     axios({
         method: 'post',
         url: url,
-        data: params,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
+        data: params
     }).then((response) => {
-      console.log(response);
+      // console.log(response.data.output);
+      this.setState({
+        ...this.state,
+        output: response.data.output.join(",")
+      })
     }).catch((e) => {
       console.log(e);
     });

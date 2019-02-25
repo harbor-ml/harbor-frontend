@@ -43,7 +43,7 @@ export function initialLoad() {
         description: "Fill in the starting text box with a phrase and let AI " +
         "autocomplete it for you. Pretrained Model provided by pytorch-pretrained" +
         "-bert.",
-        url: "http://text-gen.simon-mo.com/api",
+        url: "http://text-gen.simon-mo.com:9999/api",
         params: {
           "text": "text",
           "num_words": "number",
