@@ -60,7 +60,7 @@ class InputFields extends React.Component {
     this.submit = this.submit.bind(this);
     this.state = {
       ...this.props.modelParams,
-      output: "Result"
+      output: []
     }
   }
 
@@ -130,7 +130,7 @@ class InputFields extends React.Component {
       // console.log(response.data.output);
       this.setState({
         ...this.state,
-        output: response.data.output.join(",")
+        output: response.data.output
       })
     }).catch((e) => {
       console.log(e);
@@ -154,22 +154,29 @@ class InputFields extends React.Component {
       </div>
       <br />
       <form className={classes.container} noValidate autoComplete="off">
-        <TextField
-          id="outlined-full-width"
-          label="Output"
-          style={{ margin: 8 }}
-          value={this.state.output}
-          multiline
-          fullWidth
-          margin="normal"
-          variant="outlined"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          InputProps={{
-            readOnly: true,
-          }}
-        />
+        {
+          this.state.output.map((val, index) => {
+            return (
+              <TextField
+                key={index}
+                id="outlined-full-width"
+                label={`Output ${index + 1}:`}
+                style={{ margin: 8 }}
+                value={val}
+                multiline
+                fullWidth
+                margin="normal"
+                variant="outlined"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+            )
+          })
+        }
       </form>
       </div>
     );
