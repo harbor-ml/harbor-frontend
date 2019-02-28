@@ -2,6 +2,22 @@
 
 Repository for Harbor
 
+## Overview of Project:
+
+This project will serve (at the moment) three purposes:
+- Showcase models
+- Demo models
+- Serve as an API to use models in applications
+
+<p>
+We build upon Clipper.ai, which will help users deploy models. From there, we
+will feature these deployed models on our site for others to try out and even
+use in their own projects. A high-level description of the details of Harbor
+is described below:
+</p>
+
+![harbor-graphic](./documentation/assets/harbor-graphic.svg)
+
 ## Instructions:
 
 - If you don't have node and/or npm installed, do that first.
