@@ -18,6 +18,12 @@ is described below:
 
 ![harbor-graphic](./documentation/assets/harbor-graphic.svg)
 
+## v2:
+(Coming soon)
+
+## v1:
+![harbor-gif-v1](./documentation/assets/harbor-gif-v1.gif)
+
 ## Instructions:
 
 - If you don't have node and/or npm installed, do that first.
