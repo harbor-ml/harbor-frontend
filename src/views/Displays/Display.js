@@ -11,6 +11,7 @@ class Display extends Component {
         <Switch>
           <Route exact path="/" component={Dashboard}/>
           <Route exact path="/Model/:id" component={Model}/>
+          <Route exact path="/Models" component={Search}/>
         </Switch>
       </div>
     );
