@@ -4,6 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+import Grow from '@material-ui/core/Grow';
+
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {getModels, initialLoad, selectModel} from '../../redux/actions';
@@ -14,9 +16,13 @@ const styles = theme => ({
   },
   paper: {
     padding: theme.spacing.unit * 2,
+    opacity: 0.9,
     color: theme.palette.text.secondary,
     height: 380,
-    textDecoration: "None"
+    textDecoration: "None",
+    '&:hover': {
+      opacity: 1
+    }
   },
 });
 
@@ -41,6 +47,13 @@ class Dashboard extends React.Component {
     const { classes } = this.props;
 
     const renderedModels = this.props.models.map( (val, index) =>
+      <Grow
+        in={this.props.models.length > 0}
+        style={{
+          transformOrigin: '0 0 0',
+       }}
+       {...(this.props.models.length > 0 ? { timeout: index*100 + 100 } : {})}
+      >
       <Grid
           onClick={(e) => this.setLoaded(e, val)}
           key={index} item xs={12} sm={6} md={4} lg={4}>
@@ -51,6 +64,7 @@ class Dashboard extends React.Component {
           </Paper>
         </Link>
       </Grid>
+      </Grow>
     );
 
     return (
