@@ -48,6 +48,7 @@ class Dashboard extends React.Component {
 
     const renderedModels = this.props.models.map( (val, index) =>
       <Grow
+        key={index}
         in={this.props.models.length > 0}
         style={{
           transformOrigin: '0 0 0',
@@ -56,7 +57,7 @@ class Dashboard extends React.Component {
       >
       <Grid
           onClick={(e) => this.setLoaded(e, val)}
-          key={index} item xs={12} sm={6} md={4} lg={4}>
+          item xs={12} sm={6} md={4} lg={4}>
         <Link to={"/Model/" + val.id} style={{textDecoration: "None"}}>
           <Paper className={classes.paper}>
             <Typography variant="h4">{val.title}</Typography><br/>

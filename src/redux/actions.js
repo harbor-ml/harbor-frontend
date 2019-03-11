@@ -1,6 +1,7 @@
 export const GET_MODELS = "GET_MODELS";
 export const SET_SEL_MODEL = "SEL_MODEL";
 export const SET_LOADED = "SET_LOADED";
+export const SET_LOADED_W_SET_SEL = "SET_LOADED_W_SET_SEL";
 
 function handleInitialLoad(models) {
   if (models === undefined || models === null) {
@@ -9,6 +10,16 @@ function handleInitialLoad(models) {
   return {
     type: SET_LOADED,
     models
+  }
+}
+
+function handleInitialLoadWithSelection(models, selectedModel) {
+  if (models === undefined || models == null) {
+    models = [];
+  }
+  return {
+    type: SET_LOADED_W_SET_SEL,
+    models, selectedModel
   }
 }
 
@@ -43,7 +54,7 @@ export function initialLoad() {
         description: "Fill in the starting text box with a phrase and let AI " +
         "autocomplete it for you. Pretrained Model provided by pytorch-pretrained" +
         "-bert.",
-        url: "http://text-gen.simon-mo.com:9999/api",
+        url: "http://52.35.39.131:1337/text-gen/predict",
         params: {
           "text": "text",
           "num_words": "number",
@@ -77,6 +88,51 @@ export function initialLoad() {
 
     dispatch(handleInitialLoad(models));
   };
+}
+
+export function initialLoadWithSelection(id) {
+  return dispatch => {
+    var models = [{
+        id: 1,
+        title: "GPT2 Model",
+        description: "Fill in the starting text box with a phrase and let AI " +
+        "autocomplete it for you. Pretrained Model provided by pytorch-pretrained" +
+        "-bert.",
+        url: "http://52.35.39.131:1337/text-gen/predict",
+        params: {
+          "text": "text",
+          "num_words": "number",
+          "num_tries": "number"
+        }
+      }, {
+        id: 24,
+        title: "TBD Model",
+        description: "TBD description",
+        url: "",
+        params: {}
+      }, {
+        id: 53,
+        title: "TBD Model",
+        description: "TBD description",
+        url: "",
+        params: {}
+      }, {
+        id: 64,
+        title: "TBD Model",
+        description: "TBD description",
+        url: "",
+        params: {}
+      }, {
+        id: 15,
+        title: "TBD Model",
+        description: "TBD description",
+        url: "",
+        params: {}
+      }];
+
+    var selectedModel = models.filter((val) => val.id === id)[0];
+    dispatch(handleInitialLoadWithSelection(models, selectedModel));
+  }
 }
 
 export function selectModel(model) {

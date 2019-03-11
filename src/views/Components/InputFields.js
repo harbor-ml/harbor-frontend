@@ -120,14 +120,20 @@ class InputFields extends React.Component {
 
     const {url} = this.state;
     const params = _.omit(this.state, ['url', 'output']);
-    // console.log(params);
+    console.log("{\"text\": \"trump says hi\", \"num_words\": 50, \"num_tries\": 3}");
+    console.log(JSON.stringify(params));
 
     axios({
         method: 'post',
         url: url,
-        data: params
+        headers: {
+          "Content-Type": "application/json"
+        },
+        data: {
+          "input": "{\"text\": \"trump says hi\", \"num_words\": 50, \"num_tries\": 3}"
+        }
     }).then((response) => {
-      // console.log(response.data.output);
+      console.log(response);
       this.setState({
         ...this.state,
         output: response.data.output

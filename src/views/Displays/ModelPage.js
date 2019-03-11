@@ -9,6 +9,7 @@ import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
 import InputFields from '../Components/InputFields';
+import {initialLoadWithSelection} from '../../redux/actions';
 
 // will need to be changed to react to go back anywhere
 const MyLink = (props) => <Link to="/" {...props} />
@@ -39,8 +40,39 @@ CustomButton.propTypes = {
 const ModelButton = withStyles(styles)(CustomButton);
 
 class Model extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      selectedModel: this.props.selectedModel
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.selectedModel !== this.props.selectedModel){
+      console.log(nextProps.selectedModel);
+      this.setState({selectedModel: nextProps.selectedModel });
+    }
+  }
+
+  componentDidMount() {
+    var model = this.state.selectedModel;
+    if (model === undefined || model === null) {
+      var urlPath = window.location.pathname.split("/")
+      const id = parseInt(urlPath[urlPath.length - 1]);
+      this.props.initialLoadWithSelection(id);
+    }
+  }
+
   render() {
-    const model = this.props.selectedModel;
+    const model = this.state.selectedModel;
+    if (model === null || model === undefined) {
+      return (
+        <div>
+          Loading
+        </div>
+      )
+    }
+
     return (
       <div>
         <ModelButton /><br/>
@@ -60,4 +92,4 @@ const mapStateToProps = (reduxState) => {
   }
 };
 
-export default connect(mapStateToProps, {})(Model);
+export default connect(mapStateToProps, {initialLoadWithSelection})(Model);

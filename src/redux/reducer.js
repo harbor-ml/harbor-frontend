@@ -1,4 +1,9 @@
-import {GET_MODELS, SET_SEL_MODEL, SET_LOADED} from './actions';
+import {
+  GET_MODELS,
+  SET_SEL_MODEL,
+  SET_LOADED,
+  SET_LOADED_W_SET_SEL
+} from './actions';
 
 const initialState = {
   loaded: false,
@@ -13,6 +18,13 @@ export default function reducer(state = initialState, action) {
         ...state,
         loaded: true,
         models: action.models
+      }
+    case SET_LOADED_W_SET_SEL:
+      return {
+        ...state,
+        loaded: true,
+        models: action.models,
+        selectedModel: action.selectedModel
       }
     case GET_MODELS:
       return {
