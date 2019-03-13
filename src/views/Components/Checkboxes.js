@@ -5,10 +5,6 @@ import green from '@material-ui/core/colors/green';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
-import CheckBoxIcon from '@material-ui/icons/CheckBox';
-import Favorite from '@material-ui/icons/Favorite';
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
 
 const styles = {
   root: {
@@ -21,32 +17,42 @@ const styles = {
 };
 
 class Checkboxes extends React.Component {
-  state = {
-    checkedA: true,
-    checkedB: true,
-    checkedF: true,
-    checkedG: true,
-  };
+  constructor(props) {
+    super(props);
+    this.handleChange = this.handleChange.bind(this);
 
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.checked });
-  };
+    this.state = {};
+
+    for (var i = 0; i < props.customLabels.length; i++) {
+      var option = props.customLabels[i];
+      this.state[option] = false;
+    }
+  }
+
+  handleChange(name) {
+    return (event) => {
+      this.setState({
+        ...this.state,
+        [name]: event.target.checked,
+      });
+    };
+  }
 
   render() {
+    console.log(this.state);
     const { classes } = this.props;
-    const { customLabels } = this.props;
 
-    const controls = customLabels.map((val, index) => {
+    const controls = this.props.customLabels.map((val, index) => {
       return (
         <FormControlLabel
           control={
             <Checkbox
-              checked={this.state.checkedA}
-              onChange={this.handleChange('checkedA')}
-              value="checkedA"
+              checked={this.state.val}
+              onChange={this.handleChange(val)}
               color="primary"
             />
           }
+          key={index}
           label={val}
         />
       )
@@ -54,7 +60,7 @@ class Checkboxes extends React.Component {
 
 
     return (
-      <FormGroup column>
+      <FormGroup>
         {controls}
       </FormGroup>
     );
