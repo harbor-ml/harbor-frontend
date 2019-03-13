@@ -119,8 +119,6 @@ class InputFields extends React.Component {
   }
 
   handleChange(name) {
-    // console.log("handling change");
-    // console.log(this.state);
     return (event) => {
       this.setState({
         ...this.state,
@@ -141,6 +139,7 @@ class InputFields extends React.Component {
     //console.log(this.state);
     console.log(JSON.stringify(params));
 
+    // Send API request to backend
     /*axios({
         method: 'post',
         url: url,
@@ -163,7 +162,7 @@ class InputFields extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const modelParams = this.state;
+    const modelParams = this.props.selectedModel.params;
 
     return (
       <div>
@@ -177,6 +176,7 @@ class InputFields extends React.Component {
         <SubmitButton clickFunction={this.submit} />
       </div>
       <br />
+      {/* Output below */}
       <form className={classes.container} noValidate autoComplete="off">
         {
           this.state.output.map((val, index) => {
