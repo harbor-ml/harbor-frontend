@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
 import _ from 'lodash';
+//import axios from 'axios';
+//import MenuItem from '@material-ui/core/MenuItem';
+//import classNames from 'classnames';
 
 const styles = theme => ({
   container: {
@@ -52,16 +53,30 @@ CustomButton.propTypes = {
 
 const SubmitButton = withStyles(buttonStyles)(CustomButton);
 
+const mapStateToProps = state => {
+  return {
+    selectedModel: state.selectedModel
+  };
+};
+
 class InputFields extends React.Component {
   constructor(props) {
     super(props);
+
     this.handleChange = this.handleChange.bind(this);
     this.decideHTMLComponent = this.decideHTMLComponent.bind(this);
     this.submit = this.submit.bind(this);
+
     this.state = {
-      ...this.props.modelParams,
+      ...this.props.selectedModel.params,
+      url: this.props.selectedModel.url,
       output: []
     }
+
+    console.log("state: ");
+    console.log(this.state)
+    console.log("props: ");
+    console.log(this.props)
   }
 
   decideHTMLComponent(param, classes, inputType, key) {
@@ -113,17 +128,19 @@ class InputFields extends React.Component {
   }
 
   submit(event) {
-    // console.log(this.state);
     if (this.state.url === "") {
       return null;
     }
 
-    const {url} = this.state;
+    //const {url} = this.state;
     const params = _.omit(this.state, ['url', 'output']);
-    console.log("{\"text\": \"trump says hi\", \"num_words\": 50, \"num_tries\": 3}");
+
+    console.log("submitting")
+    //console.log(this.state);
     console.log(JSON.stringify(params));
 
-    axios({
+    // Send API request to backend
+    /*axios({
         method: 'post',
         url: url,
         headers: {
@@ -140,12 +157,12 @@ class InputFields extends React.Component {
       })
     }).catch((e) => {
       console.log(e);
-    });
+    });*/
   }
 
   render() {
     const { classes } = this.props;
-    const { modelParams } = this.props;
+    const modelParams = this.props.selectedModel.params;
 
     return (
       <div>
@@ -159,6 +176,7 @@ class InputFields extends React.Component {
         <SubmitButton clickFunction={this.submit} />
       </div>
       <br />
+      {/* Output below */}
       <form className={classes.container} noValidate autoComplete="off">
         {
           this.state.output.map((val, index) => {
@@ -193,4 +211,4 @@ InputFields.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(InputFields);
+export default connect(mapStateToProps)(withStyles(styles)(InputFields));
