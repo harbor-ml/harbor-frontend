@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+//import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -80,7 +80,7 @@ class Model extends Component {
         <Typography variant="h5">{model.description}</Typography>
         <br /><Divider /><br />
         <Typography variant="h5">Demo:</Typography><br />
-        <InputFields modelParams={{...model.params, url: model.url}}/>
+        <InputFields />
       </div>
     );
   }

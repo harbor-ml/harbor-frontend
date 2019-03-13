@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import { connect } from 'react-redux';
+//import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
+//import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import axios from 'axios';
+//import axios from 'axios';
 import _ from 'lodash';
+import {initialLoadWithSelection} from '../../redux/actions';
 
 const styles = theme => ({
   container: {
@@ -52,15 +54,39 @@ CustomButton.propTypes = {
 
 const SubmitButton = withStyles(buttonStyles)(CustomButton);
 
+const mapStateToProps = state => {
+  return {
+    selectedModel: state.selectedModel
+  };
+};
+
 class InputFields extends React.Component {
   constructor(props) {
     super(props);
+
     this.handleChange = this.handleChange.bind(this);
     this.decideHTMLComponent = this.decideHTMLComponent.bind(this);
     this.submit = this.submit.bind(this);
+
     this.state = {
-      ...this.props.modelParams,
+      ...this.props.selectedModel.params,
+      url: this.props.selectedModel.url,
       output: []
+    }
+    console.log("loaded");
+    console.log("state");
+    console.log(this.state)
+    console.log("props");
+    console.log(this.props)
+  }
+
+  componentDidMount() {
+    var model = this.state.selectedModel;
+    if (model === undefined || model === null) {
+      var urlPath = window.location.pathname.split("/")
+      const id = parseInt(urlPath[urlPath.length - 1]);
+      console.log("ya", id);
+      this.props.initialLoadWithSelection(id);
     }
   }
 
@@ -104,6 +130,8 @@ class InputFields extends React.Component {
   }
 
   handleChange(name) {
+    // console.log("handling change");
+    // console.log(this.state);
     return (event) => {
       this.setState({
         ...this.state,
@@ -113,17 +141,18 @@ class InputFields extends React.Component {
   }
 
   submit(event) {
-    // console.log(this.state);
     if (this.state.url === "") {
       return null;
     }
 
-    const {url} = this.state;
+    //const {url} = this.state;
     const params = _.omit(this.state, ['url', 'output']);
-    console.log("{\"text\": \"trump says hi\", \"num_words\": 50, \"num_tries\": 3}");
+
+    console.log("submitting")
+    //console.log(this.state);
     console.log(JSON.stringify(params));
 
-    axios({
+    /*axios({
         method: 'post',
         url: url,
         headers: {
@@ -140,12 +169,17 @@ class InputFields extends React.Component {
       })
     }).catch((e) => {
       console.log(e);
-    });
+    });*/
   }
 
   render() {
     const { classes } = this.props;
-    const { modelParams } = this.props;
+    const modelParams = this.state;
+
+    console.log(classes);
+    console.log(modelParams);
+
+
 
     return (
       <div>
@@ -193,4 +227,4 @@ InputFields.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(InputFields);
+export default connect(mapStateToProps, {initialLoadWithSelection})(withStyles(styles)(InputFields));
