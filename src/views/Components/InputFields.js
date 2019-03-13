@@ -1,14 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-//import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
-//import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-//import axios from 'axios';
 import _ from 'lodash';
-import {initialLoadWithSelection} from '../../redux/actions';
+//import axios from 'axios';
+//import MenuItem from '@material-ui/core/MenuItem';
+//import classNames from 'classnames';
 
 const styles = theme => ({
   container: {
@@ -73,21 +72,11 @@ class InputFields extends React.Component {
       url: this.props.selectedModel.url,
       output: []
     }
-    console.log("loaded");
-    console.log("state");
-    console.log(this.state)
-    console.log("props");
-    console.log(this.props)
-  }
 
-  componentDidMount() {
-    var model = this.state.selectedModel;
-    if (model === undefined || model === null) {
-      var urlPath = window.location.pathname.split("/")
-      const id = parseInt(urlPath[urlPath.length - 1]);
-      console.log("ya", id);
-      this.props.initialLoadWithSelection(id);
-    }
+    console.log("state: ");
+    console.log(this.state)
+    console.log("props: ");
+    console.log(this.props)
   }
 
   decideHTMLComponent(param, classes, inputType, key) {
@@ -176,11 +165,6 @@ class InputFields extends React.Component {
     const { classes } = this.props;
     const modelParams = this.state;
 
-    console.log(classes);
-    console.log(modelParams);
-
-
-
     return (
       <div>
       <form className={classes.container} noValidate autoComplete="off">
@@ -227,4 +211,4 @@ InputFields.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps, {initialLoadWithSelection})(withStyles(styles)(InputFields));
+export default connect(mapStateToProps)(withStyles(styles)(InputFields));

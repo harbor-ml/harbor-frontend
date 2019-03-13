@@ -3,13 +3,13 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
-//import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
 import InputFields from '../Components/InputFields';
 import {initialLoadWithSelection} from '../../redux/actions';
+//import classNames from 'classnames';
 
 // will need to be changed to react to go back anywhere
 const MyLink = (props) => <Link to="/" {...props} />
@@ -49,7 +49,6 @@ class Model extends Component {
 
   componentWillReceiveProps(nextProps){
     if(nextProps.selectedModel !== this.props.selectedModel){
-      console.log(nextProps.selectedModel);
       this.setState({selectedModel: nextProps.selectedModel });
     }
   }
