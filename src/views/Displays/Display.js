@@ -4,6 +4,9 @@ import Model from './ModelPage';
 import Search from './SearchPage';
 import {Switch, Route} from 'react-router-dom';
 
+// Testing Components
+import ImgUploader from '../Miscellanea/ImageUploadTest';
+
 class Display extends Component {
   render() {
     return (
@@ -12,6 +15,7 @@ class Display extends Component {
           <Route exact path="/" component={Dashboard}/>
           <Route exact path="/Model/:id" component={Model}/>
           <Route exact path="/Models" component={Search}/>
+          <Route exact path="/Test/ImgUploader" component={ImgUploader}/>
         </Switch>
       </div>
     );

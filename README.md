@@ -46,6 +46,12 @@ is described below:
   - description of model, url for requests, params
   - Decide on what stack to use: mongo/express/mongoose or sql/django/flask
 
+## Notes:
+- Raymond is refactoring code within inputfields
+  - Getting rid of unnecessary renderings within Components
+  - Make model page dumb, Make inputfields smart
+  - Call initialLoadWithSelection within inputfields
+
 ______
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
