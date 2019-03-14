@@ -10,34 +10,22 @@ class ImgUploader extends React.Component {
     }
 
     onDrop(picture) {
-        var blobArr = [];
-        blobArr.push(picture);
-        const picURL = window.URL.createObjectURL(new Blob(blobArr, {type: "image/png"}));
+      console.log(picture);
         this.setState({
-            pictures: this.state.pictures.concat(picURL)
-        });
+          picture: [...this.state.pictures, picture]
+        })
     }
 
     render() {
-      const imgs = this.state.pictures.map((val, index) => {
-        return (
-          <div key={index}>
-            <img src={val} alt={"picture"} />
-          </div>
-        )
-      });
-
       return (
-          <div>
             <ImageUploader
                 withIcon={true}
+                withPreview={true}
                 buttonText='Choose images'
                 onChange={this.onDrop}
                 imgExtension={['.jpg', '.gif', '.png', '.gif']}
                 maxFileSize={5242880}
             />
-            {imgs}
-          </div>
       );
     }
 }
