@@ -51,6 +51,8 @@ is described below:
   - Getting rid of unnecessary renderings within Components
   - Make model page dumb, Make inputfields smart
   - Call initialLoadWithSelection within inputfields
+- Picture Uploading
+  - Using either react-dropzone, react-image-uploader, or my own uploader
 
 ______
 

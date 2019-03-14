@@ -62,10 +62,15 @@ export function initialLoad() {
         }
       }, {
         id: 24,
-        title: "TBD Model",
-        description: "TBD description",
+        title: "Picture Model",
+        description: "Example Fields with uploading pictures",
         url: "",
-        params: {}
+        params: {
+          "Text Input 1": "text",
+          "Text Input 2": "text",
+          "Number Input 1": "number",
+          "Data": "data"
+        }
       }, {
         id: 53,
         title: "TBD Model",
@@ -106,10 +111,15 @@ export function initialLoadWithSelection(id) {
         }
       }, {
         id: 24,
-        title: "TBD Model",
-        description: "TBD description",
+        title: "Picture Model",
+        description: "Example Fields with uploading pictures",
         url: "",
-        params: {}
+        params: {
+          "Text Input 1": "text",
+          "Text Input 2": "text",
+          "Number Input 1": "number",
+          "Data": "data"
+        }
       }, {
         id: 53,
         title: "TBD Model",

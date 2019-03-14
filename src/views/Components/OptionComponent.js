@@ -18,7 +18,7 @@ const styles = theme => ({
   },
 });
 
-function SimpleExpansionPanel(props) {
+const OptionComponent = (props) => {
   const { classes } = props;
   return (
     <div className={classes.root}>
@@ -27,7 +27,7 @@ function SimpleExpansionPanel(props) {
           <Typography className={classes.heading}>Discrminative Models</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <Checkboxes customLabels={['Vision Classification', 'Vision Detection']}/>
+        <Checkboxes customLabels={['Vision Classification', 'Vision Detection']}/>
         </ExpansionPanelDetails>
       </ExpansionPanel>
       <ExpansionPanel>
@@ -42,8 +42,8 @@ function SimpleExpansionPanel(props) {
   );
 }
 
-SimpleExpansionPanel.propTypes = {
+OptionComponent.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleExpansionPanel);
+export default withStyles(styles)(OptionComponent);

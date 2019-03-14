@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import UploadComponent from './UploadComponent';
 import _ from 'lodash';
 //import axios from 'axios';
 //import MenuItem from '@material-ui/core/MenuItem';
@@ -53,12 +54,6 @@ CustomButton.propTypes = {
 
 const SubmitButton = withStyles(buttonStyles)(CustomButton);
 
-const mapStateToProps = state => {
-  return {
-    selectedModel: state.selectedModel
-  };
-};
-
 class InputFields extends React.Component {
   constructor(props) {
     super(props);
@@ -72,11 +67,6 @@ class InputFields extends React.Component {
       url: this.props.selectedModel.url,
       output: []
     }
-
-    console.log("state: ");
-    console.log(this.state)
-    console.log("props: ");
-    console.log(this.props)
   }
 
   decideHTMLComponent(param, classes, inputType, key) {
@@ -134,10 +124,8 @@ class InputFields extends React.Component {
 
     //const {url} = this.state;
     const params = _.omit(this.state, ['url', 'output']);
-
-    console.log("submitting")
     //console.log(this.state);
-    console.log(JSON.stringify(params));
+    //console.log(JSON.stringify(params));
 
     // Send API request to backend
     /*axios({
@@ -163,19 +151,33 @@ class InputFields extends React.Component {
   render() {
     const { classes } = this.props;
     const modelParams = this.props.selectedModel.params;
+    var dataInputs = [];
+
+    const paramInputs = Object.keys(modelParams).map((key, index) => {
+      var inputType = modelParams[key];
+      if (inputType !== "text" && inputType !== "number") {
+          dataInputs.push({
+            [key]: inputType
+          });
+      }
+      return this.decideHTMLComponent(key, classes, inputType, index);
+    });
+
+    const dataInputs = dataInputs.map((v, i) => <UploadComponent key={i}/>);
 
     return (
       <div>
       <form className={classes.container} noValidate autoComplete="off">
-        {Object.keys(modelParams).map((key, index) => {
-          var inputType = modelParams[key];
-          return this.decideHTMLComponent(key, classes, inputType, index);
-        })}
+        {paramInputs}
       </form>
+      {dataInputs}
+      <br />
+      <br />
       <div>
         <SubmitButton clickFunction={this.submit} />
       </div>
       <br />
+
       {/* Output below */}
       <form className={classes.container} noValidate autoComplete="off">
         {
@@ -210,5 +212,12 @@ class InputFields extends React.Component {
 InputFields.propTypes = {
   classes: PropTypes.object.isRequired,
 };
+
+const mapStateToProps = state => {
+  return {
+    selectedModel: state.selectedModel
+  };
+};
+
 
 export default connect(mapStateToProps)(withStyles(styles)(InputFields));

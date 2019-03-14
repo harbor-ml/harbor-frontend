@@ -39,7 +39,6 @@ class Checkboxes extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     const { classes } = this.props;
 
     const controls = this.props.customLabels.map((val, index) => {

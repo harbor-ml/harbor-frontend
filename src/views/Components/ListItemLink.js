@@ -9,6 +9,7 @@ class ListItemLink extends Component {
 
   render() {
     const { icon, primary, secondary} = this.props;
+
     return (
       <li>
         <ListItem button component={this.renderLink}>

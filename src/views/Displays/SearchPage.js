@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
-import OptionComponent from './OptionComponent';
+import OptionComponent from '../Components/OptionComponent';
+
 /*
 
 function ____() {
-	
+
 }
 
 const ___ = () => {
-	
+
 }
 
 
 */
 
 
-
 class Search extends Component {
-  
+
   constructor(props) {
   	super(props);
   	this.editStateOptions = this.editStateOptions.bind(this);
@@ -33,10 +33,7 @@ class Search extends Component {
 
   render() {
     return (
-      <div>
-        Search Page
-        <OptionComponent/> 
-      </div>
+        <OptionComponent/>
     );
   }
 }
