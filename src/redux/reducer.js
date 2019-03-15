@@ -2,13 +2,15 @@ import {
   GET_MODELS,
   SET_SEL_MODEL,
   SET_LOADED,
-  SET_LOADED_W_SET_SEL
+  SET_LOADED_W_SET_SEL,
+  RECEIVED_DATA
 } from './actions';
 
 const initialState = {
   loaded: false,
   models: [],
-  selectedModel: null
+  selectedModel: null,
+  data: []
 }
 
 export default function reducer(state = initialState, action) {
@@ -35,6 +37,11 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         selectedModel: action.model
+      }
+    case RECEIVED_DATA:
+      return {
+        ...state,
+        data: action.data
       }
     default:
       return state;

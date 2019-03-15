@@ -2,6 +2,7 @@ export const GET_MODELS = "GET_MODELS";
 export const SET_SEL_MODEL = "SEL_MODEL";
 export const SET_LOADED = "SET_LOADED";
 export const SET_LOADED_W_SET_SEL = "SET_LOADED_W_SET_SEL";
+export const RECEIVED_DATA = "RECEIVED_DATA";
 
 function handleInitialLoad(models) {
   if (models === undefined || models === null) {
@@ -40,6 +41,16 @@ function handleReceivedModels(models) {
   return {
     type: GET_MODELS,
     models
+  }
+}
+
+function handleReceivedData(data) {
+  if (data == undefined || data == null) {
+    data = [];
+  }
+  return {
+    type: RECEIVED_DATA,
+    data
   }
 }
 
@@ -170,6 +181,24 @@ export function initialLoadWithSelection(id) {
 
     var selectedModel = models.filter((val) => val.id === id)[0];
     dispatch(handleInitialLoadWithSelection(models, selectedModel));
+  }
+}
+
+export function getData(model_id, version, query) {
+  return dispatch => {
+    // axios({
+    //   method: 'post',
+    //   url: `${BACKEND_URL}/api/query`,
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   data: query
+    // }).then((response) => {
+    //   console.log(response);
+    //   dispatch(query.data)
+    // }).catch((e) => {
+    //   console.log(e);
+    // });
   }
 }
 
