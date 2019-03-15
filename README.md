@@ -18,8 +18,11 @@ is described below:
 
 ![harbor-graphic](./documentation/assets/harbor-graphic.svg)
 
+## v3:
+(coming soon)
+
 ## v2:
-(Coming soon)
+![harbor-gif-v2](./documentation/assets/harbor-gif-v2.gif)
 
 ## v1:
 ![harbor-gif-v1](./documentation/assets/harbor-gif-v1.gif)
@@ -41,7 +44,9 @@ is described below:
 
 ## Todos:
 - Frontend
-  - define https requests and render in react webapp
+  - Define https requests and render in react webapp
+  - Route to backend
+  - Verify picture uploading success
 - Backend
   - description of model, url for requests, params
   - Decide on what stack to use: mongo/express/mongoose or sql/django/flask
