@@ -334,7 +334,7 @@ class InputFields extends React.Component {
             horizontal: 'left',
           }}
           open={this.state.openSnackbarFail}
-          autoHideDuration={6000}
+          autoHideDuration={3000}
           onClose={this.handleCloseSnackbar}
         >
           <MySnackbarContentWrapper
@@ -349,7 +349,7 @@ class InputFields extends React.Component {
             horizontal: 'left',
           }}
           open={this.state.openSnackbarSuccess}
-          autoHideDuration={6000}
+          autoHideDuration={3000}
           onClose={this.handleCloseSnackbar}
         >
           <MySnackbarContentWrapper
