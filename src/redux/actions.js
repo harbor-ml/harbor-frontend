@@ -62,8 +62,9 @@ export function initialLoad() {
         }
       }, {
         id: 24,
-        title: "Picture Model",
-        description: "Example Fields with uploading pictures",
+        title: "Sample Image Classification Model",
+        description: "Upload image, returns table of classifications (class_name, " +
+        "class_description, score)",
         url: "sampleurlhere",
         params: {
           "Text Input 1": "text",
@@ -73,22 +74,35 @@ export function initialLoad() {
         }
       }, {
         id: 53,
-        title: "TBD Model",
-        description: "TBD description",
-        url: "",
-        params: {}
+        title: "Sample Text Classification Model",
+        description: "Accepts an array of strings, returns a list of tuples (class_name), " +
+        "class_description, score)",
+        url: "sampleurlhere",
+        params: {
+          "Text Input 1": "text",
+          "Text Input 2": "text",
+          "Number Input 1": "number"
+        }
       }, {
         id: 64,
-        title: "TBD Model",
-        description: "TBD description",
-        url: "",
-        params: {}
+        title: "Sample Object Detection Model",
+        description: "Accepts image, returns image with boundary boxes",
+        url: "sampleurlhere",
+        params: {
+          "Text Input 1": "text",
+          "Number Input 1": "number",
+          "Data": "data"
+        }
       }, {
         id: 15,
-        title: "TBD Model",
-        description: "TBD description",
-        url: "",
-        params: {}
+        title: "Sample Style Transfer Model",
+        description: "Accepts image, returns style transferred image",
+        url: "sampleurlhere",
+        params: {
+          "Text Input 1": "text",
+          "Text Input 2": "text",
+          "Data": "data"
+        }
       }];
 
     dispatch(handleInitialLoad(models));
@@ -111,8 +125,9 @@ export function initialLoadWithSelection(id) {
         }
       }, {
         id: 24,
-        title: "Picture Model",
-        description: "Example Fields with uploading pictures",
+        title: "Sample Image Classification Model",
+        description: "Upload image, returns table of classifications (class_name, " +
+        "class_description, score)",
         url: "sampleurlhere",
         params: {
           "Text Input 1": "text",
@@ -122,22 +137,35 @@ export function initialLoadWithSelection(id) {
         }
       }, {
         id: 53,
-        title: "TBD Model",
-        description: "TBD description",
-        url: "",
-        params: {}
+        title: "Sample Text Classification Model",
+        description: "Accepts an array of strings, returns a list of tuples (class_name), " +
+        "class_description, score)",
+        url: "sampleurlhere",
+        params: {
+          "Text Input 1": "text",
+          "Text Input 2": "text",
+          "Number Input 1": "number"
+        }
       }, {
         id: 64,
-        title: "TBD Model",
-        description: "TBD description",
-        url: "",
-        params: {}
+        title: "Sample Object Detection Model",
+        description: "Accepts image, returns image with boundary boxes",
+        url: "sampleurlhere",
+        params: {
+          "Text Input 1": "text",
+          "Number Input 1": "number",
+          "Data": "data"
+        }
       }, {
         id: 15,
-        title: "TBD Model",
-        description: "TBD description",
-        url: "",
-        params: {}
+        title: "Sample Style Transfer Model",
+        description: "Accepts image, returns style transferred image",
+        url: "sampleurlhere",
+        params: {
+          "Text Input 1": "text",
+          "Text Input 2": "text",
+          "Data": "data"
+        }
       }];
 
     var selectedModel = models.filter((val) => val.id === id)[0];
