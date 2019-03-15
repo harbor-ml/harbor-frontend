@@ -3,6 +3,7 @@ import Dashboard from './Dashboard';
 import Model from './ModelPage';
 import Search from './SearchPage';
 import {Switch, Route} from 'react-router-dom';
+//import UploadComponent from '../Components/UploadComponent';
 
 class Display extends Component {
   render() {
@@ -12,9 +13,10 @@ class Display extends Component {
           <Route exact path="/" component={Dashboard}/>
           <Route exact path="/Model/:id" component={Model}/>
           <Route exact path="/Models" component={Search}/>
-          {//<Route exact path="/Test/ImgUploader" component={UploadComponent}/>
-          //<Route exact path="/Expansion" component={SimpleExpansionPanel}/>
-          }
+          {/*
+          <Route exact path="/Test/ImgUploader" component={UploadComponent}/>
+          <Route exact path="/Expansion" component={SimpleExpansionPanel}/>
+          */}
         </Switch>
       </div>
     );
