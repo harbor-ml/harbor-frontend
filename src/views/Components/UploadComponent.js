@@ -61,6 +61,7 @@ class UploadComponent extends React.Component {
     let file = e.target.files[0];
 
     reader.onloadend = () => {
+      console.log(reader.result);
       this.setState({
         files: [...this.state.files, {
           file: reader.result

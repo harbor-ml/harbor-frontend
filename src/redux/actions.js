@@ -103,7 +103,7 @@ export function initialLoadWithSelection(id) {
         description: "Fill in the starting text box with a phrase and let AI " +
         "autocomplete it for you. Pretrained Model provided by pytorch-pretrained" +
         "-bert.",
-        url: "http://52.35.39.131:1337/text-gen/predict",
+        url: "http://52.35.39.131:1337/text-gen/predict/",
         params: {
           "text": "text",
           "num_words": "number",
