@@ -125,7 +125,7 @@ class InputFields extends React.Component {
     //const {url} = this.state;
     const params = _.omit(this.state, ['url', 'output']);
     //console.log(this.state);
-    //console.log(JSON.stringify(params));
+    console.log(JSON.stringify(params));
 
     // Send API request to backend
     /*axios({
@@ -151,19 +151,19 @@ class InputFields extends React.Component {
   render() {
     const { classes } = this.props;
     const modelParams = this.props.selectedModel.params;
-    var dataInputs = [];
+    var generalInput = [];
 
     const paramInputs = Object.keys(modelParams).map((key, index) => {
       var inputType = modelParams[key];
       if (inputType !== "text" && inputType !== "number") {
-          dataInputs.push({
+          generalInput.push({
             [key]: inputType
           });
       }
       return this.decideHTMLComponent(key, classes, inputType, index);
     });
 
-    const dataInputs = dataInputs.map((v, i) => <UploadComponent key={i}/>);
+    const dataInputs = generalInput.map((v, i) => <UploadComponent key={i}/>);
 
     return (
       <div>

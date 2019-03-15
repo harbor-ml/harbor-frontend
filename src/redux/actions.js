@@ -64,7 +64,7 @@ export function initialLoad() {
         id: 24,
         title: "Picture Model",
         description: "Example Fields with uploading pictures",
-        url: "",
+        url: "sampleurlhere",
         params: {
           "Text Input 1": "text",
           "Text Input 2": "text",
@@ -113,7 +113,7 @@ export function initialLoadWithSelection(id) {
         id: 24,
         title: "Picture Model",
         description: "Example Fields with uploading pictures",
-        url: "",
+        url: "sampleurlhere",
         params: {
           "Text Input 1": "text",
           "Text Input 2": "text",
