@@ -1,3 +1,5 @@
+import {initialModels} from './initialModels';
+
 export const GET_MODELS = "GET_MODELS";
 export const SET_SEL_MODEL = "SEL_MODEL";
 export const SET_LOADED = "SET_LOADED";
@@ -58,129 +60,66 @@ export function initialLoad() {
   return dispatch => {
     // GET request for model info done here
 
-    // For right now we will have values set
-    var models = [{
-        id: 1,
-        title: "GPT2 Model",
-        description: "Fill in the starting text box with a phrase and let AI " +
-        "autocomplete it for you. Pretrained Model provided by pytorch-pretrained" +
-        "-bert.",
-        url: "http://52.35.39.131:1337/text-gen/predict",
-        params: {
-          "text": "text",
-          "num_words": "number",
-          "num_tries": "number"
-        }
-      }, {
-        id: 24,
-        title: "Sample Image Classification Model",
-        description: "Upload image, returns table of classifications (class_name, " +
-        "class_description, score)",
-        url: "sampleurlhere",
-        params: {
-          "Text Input 1": "text",
-          "Text Input 2": "text",
-          "Number Input 1": "number",
-          "Data": "data"
-        }
-      }, {
-        id: 53,
-        title: "Sample Text Classification Model",
-        description: "Accepts an array of strings, returns a list of tuples (class_name), " +
-        "class_description, score)",
-        url: "sampleurlhere",
-        params: {
-          "Text Input 1": "text",
-          "Text Input 2": "text",
-          "Number Input 1": "number"
-        }
-      }, {
-        id: 64,
-        title: "Sample Object Detection Model",
-        description: "Accepts image, returns image with boundary boxes",
-        url: "sampleurlhere",
-        params: {
-          "Text Input 1": "text",
-          "Number Input 1": "number",
-          "Data": "data"
-        }
-      }, {
-        id: 15,
-        title: "Sample Style Transfer Model",
-        description: "Accepts image, returns style transferred image",
-        url: "sampleurlhere",
-        params: {
-          "Text Input 1": "text",
-          "Text Input 2": "text",
-          "Data": "data"
-        }
-      }];
+    // axios({
+    //   method: 'get',
+    //   url: `${BACKEND_URL}/api/popular`,
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   data: {
+    //     count: 5,
+    //     start_rank: 0,
+    //     metric: "requests"
+    //   }
+    // }).then((response) => {
+    //   console.log(response);
+    //
+    //   possible cleaning needing to be per model
+    //
+    //   dispatch(query.data)
+    // }).catch((e) => {
+    //   console.log(e);
+    // });
 
-    dispatch(handleInitialLoad(models));
+    dispatch(handleInitialLoad(initialModels));
   };
 }
 
 export function initialLoadWithSelection(id) {
   return dispatch => {
-    var models = [{
-        id: 1,
-        title: "GPT2 Model",
-        description: "Fill in the starting text box with a phrase and let AI " +
-        "autocomplete it for you. Pretrained Model provided by pytorch-pretrained" +
-        "-bert.",
-        url: "http://52.35.39.131:1337/text-gen/predict/",
-        params: {
-          "text": "text",
-          "num_words": "number",
-          "num_tries": "number"
-        }
-      }, {
-        id: 24,
-        title: "Sample Image Classification Model",
-        description: "Upload image, returns table of classifications (class_name, " +
-        "class_description, score)",
-        url: "sampleurlhere",
-        params: {
-          "Text Input 1": "text",
-          "Text Input 2": "text",
-          "Number Input 1": "number",
-          "Data": "data"
-        }
-      }, {
-        id: 53,
-        title: "Sample Text Classification Model",
-        description: "Accepts an array of strings, returns a list of tuples (class_name), " +
-        "class_description, score)",
-        url: "sampleurlhere",
-        params: {
-          "Text Input 1": "text",
-          "Text Input 2": "text",
-          "Number Input 1": "number"
-        }
-      }, {
-        id: 64,
-        title: "Sample Object Detection Model",
-        description: "Accepts image, returns image with boundary boxes",
-        url: "sampleurlhere",
-        params: {
-          "Text Input 1": "text",
-          "Number Input 1": "number",
-          "Data": "data"
-        }
-      }, {
-        id: 15,
-        title: "Sample Style Transfer Model",
-        description: "Accepts image, returns style transferred image",
-        url: "sampleurlhere",
-        params: {
-          "Text Input 1": "text",
-          "Text Input 2": "text",
-          "Data": "data"
-        }
-      }];
+    // GET request for model info done here
 
-    var selectedModel = models.filter((val) => val.id === id)[0];
-    dispatch(handleInitialLoadWithSelection(models, selectedModel));
+    // let getPopulars = axios({
+    //   method: 'get',
+    //   url: `${BACKEND_URL}/api/popular/`,
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   data: {
+    //     count: 5,
+    //     start_rank: 0,
+    //     metric: "requests"
+    //   }
+    // })
+    //
+    // let getSelection = axios({
+    //  method: 'get',
+    //  url: `${BACKEND_URL}/api/model/`,
+    //  data: {id}
+    // })
+    //
+    // Promise.all([getSelection, getPopulars]).then((response) => {
+    //   console.log(response);
+    //
+    //   possible cleaning needing to be per model
+    //
+    //   dispatch(query.data)
+    // }).catch((e) => {
+    //   console.log(e);
+    // });
+
+    var selectedModel = initialModels.filter((val) => val.id === id)[0];
+    dispatch(handleInitialLoadWithSelection(initialModels, selectedModel));
   }
 }
 
@@ -195,7 +134,7 @@ export function getData(model_id, version, query) {
     //   data: query
     // }).then((response) => {
     //   console.log(response);
-    //   dispatch(query.data)
+    //   dispatch(handleReceivedData(query.data))
     // }).catch((e) => {
     //   console.log(e);
     // });
@@ -208,13 +147,31 @@ export function selectModel(model) {
   }
 }
 
-export function getModels() {
+export function getModels(id=null) {
   return dispatch => {
     // GET request for model info done here
 
-    // For right now we will have values set
-    var models = [32, 54, 23, 14, 95]
+    // axios({
+    //   method: 'get',
+    //   url: `${BACKEND_URL}/api/${id ? id : "popular"}`,
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   data: id ? {id} : {
+    //     count: 5,
+    //     start_rank: 0,
+    //     metric: "requests"
+    //   }
+    // }).then((response) => {
+    //   console.log(response);
+    //
+    //   possible cleaning needing to be per model
+    //
+    //   dispatch(query.data)
+    // }).catch((e) => {
+    //   console.log(e);
+    // });
 
-    dispatch(handleReceivedModels(models));
+    dispatch(handleReceivedModels(initialModels));
   };
 }
