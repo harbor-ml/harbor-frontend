@@ -47,7 +47,7 @@ function handleReceivedModels(models) {
 }
 
 function handleReceivedData(data) {
-  if (data == undefined || data == null) {
+  if (data === undefined || data === null) {
     data = [];
   }
   return {
