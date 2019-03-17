@@ -248,6 +248,32 @@ class InputFields extends React.Component {
     }).catch((e) => {
       console.log(e);
     });*/
+
+    this.setState({
+      output: [("Class Name 1", "Class Description 1", 57),
+                ("Class Name 1", "Class Description 1", 57),
+                ("Class Name 1", "Class Description 1", 57),
+                ("Class Name 1", "Class Description 1", 57),
+                ("Class Name 1", "Class Description 1", 57),
+                ("Class Name 1", "Class Description 1", 57),
+                ("Class Name 1", "Class Description 1", 57),
+                ("Class Name 1", "Class Description 1", 57),
+                ("Class Name 1", "Class Description 1", 57),
+                ("Class Name 1", "Class Description 1", 57),
+                ("Class Name 1", "Class Description 1", 57),
+                ("Class Name 1", "Class Description 1", 57),
+                ("Class Name 1", "Class Description 1", 57),
+                ("Class Name 1", "Class Description 1", 57),
+                ("Class Name 1", "Class Description 1", 57)
+              ]
+    })
+
+    // Display output
+    this.handleDisplayOutput();
+  }
+
+  handleDisplayOutput = () => {
+
   }
 
   handleOpenSnackbarFail = () => {
