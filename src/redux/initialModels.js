@@ -9,7 +9,8 @@ export const initialModels = [{
       "text": "text",
       "num_words": "number",
       "num_tries": "number"
-    }
+    },
+    output_type: "list_vals"
   }, {
     id: 24,
     title: "Sample Image Classification Model",
@@ -21,7 +22,8 @@ export const initialModels = [{
       "Text Input 2": "text",
       "Number Input 1": "number",
       "Data": "data"
-    }
+    },
+    output_type: "list_tups"
   }, {
     id: 53,
     title: "Sample Text Classification Model",
@@ -32,7 +34,8 @@ export const initialModels = [{
       "Text Input 1": "text",
       "Text Input 2": "text",
       "Number Input 1": "number"
-    }
+    },
+    output_type: "list_tups"
   }, {
     id: 64,
     title: "Sample Object Detection Model",
@@ -42,7 +45,8 @@ export const initialModels = [{
       "Text Input 1": "text",
       "Number Input 1": "number",
       "Data": "data"
-    }
+    },
+    output_type: "image"
   }, {
     id: 15,
     title: "Sample Style Transfer Model",
@@ -52,5 +56,6 @@ export const initialModels = [{
       "Text Input 1": "text",
       "Text Input 2": "text",
       "Data": "data"
-    }
+    },
+    output_type: "image"
   }];

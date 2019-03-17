@@ -17,6 +17,12 @@ import Snackbar from '@material-ui/core/Snackbar';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import WarningIcon from '@material-ui/icons/Warning';
 import classNames from 'classnames';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Paper from '@material-ui/core/Paper';
 //import axios from 'axios';
 //import MenuItem from '@material-ui/core/MenuItem';
 
@@ -30,7 +36,7 @@ const buttonStyles = theme => ({
   },
 });
 
-const CustomButton = (props) => {
+function CustomButton(props) {
   const {classes} = props;
   const {clickFunction} = props;
   return (
@@ -47,6 +53,58 @@ CustomButton.propTypes = {
 };
 
 const SubmitButton = withStyles(buttonStyles)(CustomButton);
+
+// Table Component
+const tableStyles = theme => ({
+  root: {
+    width: '100%',
+    marginTop: theme.spacing.unit * 3,
+    overflowX: 'auto',
+  },
+  table: {
+    minWidth: 700,
+  },
+});
+
+function SimpleTable(props) {
+  const { classes } = props;
+  const { output } = props;
+
+  return (
+    <Paper className={classes.root}>
+      <Table className={classes.table}>
+        <TableHead>
+          <TableRow>
+            <TableCell>Class Name</TableCell>
+            <TableCell>Class Description</TableCell>
+            <TableCell align="right">Score</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {output.map((row, index) => {
+            return (
+              <TableRow key={index}>
+                <TableCell component="th" scope="row">
+                  {row[0]}
+                </TableCell>
+                <TableCell component="th" scope="row">
+                  {row[1]}
+                </TableCell>
+                <TableCell align="right">{row[2]}</TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+    </Paper>
+  );
+}
+
+SimpleTable.propTypes = {
+  classes: PropTypes.object.isRequired,
+};
+
+const OutputTable = withStyles(tableStyles)(SimpleTable);
 
 // Snackbar Component
 const variantIcon = {
@@ -120,7 +178,7 @@ MySnackbarContent.propTypes = {
   variant: PropTypes.oneOf(['success', 'warning', 'error', 'info']).isRequired,
 };
 
-const MySnackbarContentWrapper = withStyles(snackbarStyles)(MySnackbarContent);
+const SubmitAlert = withStyles(snackbarStyles)(MySnackbarContent);
 
 // Input Field Component
 const styles = theme => ({
@@ -150,11 +208,14 @@ class InputFields extends React.Component {
     this.handleOpenSnackbarSuccess = this.handleOpenSnackbarSuccess.bind(this);
     this.handleOpenSnackbarFail = this.handleOpenSnackbarFail.bind(this);
     this.handleCloseSnackbar = this.handleCloseSnackbar.bind(this);
+    this.handleOutput = this.handleOutput.bind(this);
+    this.handleImageUpload = this.handleImageUpload.bind(this);
+    this.handleImageDelete = this.handleImageDelete.bind(this);
 
     this.state = {
       ...this.props.selectedModel.params,
       url: this.props.selectedModel.url,
-      output: [],
+      output: null,
       openSnackbarFail: false,
       openSnackbarSuccess: false
     }
@@ -202,13 +263,40 @@ class InputFields extends React.Component {
   handleChange(name) {
     return (event) => {
       this.setState({
-        ...this.state,
-        [name]: event.target.value,
+        [name]: event.target.value
       });
     };
   }
 
+  handleImageUpload(newFile) {
+    if (this.state.Data === "data" || this.state.Data === null) {
+      this.setState({
+        Data: [newFile]
+      });
+    } else {
+      this.setState({
+        Data: [...this.state.Data, newFile]
+      });
+    }
+  }
+
+  handleImageDelete(file) {
+    if (this.state.Data === "data" || this.state.Data === null) {
+      this.setState({
+        Data: []
+      });
+    } else {
+      var newData = this.state.Data.filter((val) => {
+        return val !== file
+      });
+      this.setState({
+        Data: newData
+      });
+    }
+  }
+
   submit(event) {
+    console.log(this.state)
     if (this.state.url === "") {
       console.log("Error: no URL");
       return null;
@@ -219,14 +307,14 @@ class InputFields extends React.Component {
 
     // Form validation
     for (var field in params) {
-      if (params[field] === this.props.selectedModel.params[field] || params[field] === "") {
+      if (params[field] === this.props.selectedModel.params[field] || params[field] === "" || (params[field] && params[field].constructor === Array && params[field].length === 0)) {
         console.log("Error: fields not filled: " + field);
         this.handleOpenSnackbarFail();
         return null;
       }
     }
     //console.log(this.state);
-    console.log(JSON.stringify(params));
+    //console.log(JSON.stringify(params));
     this.handleOpenSnackbarSuccess();
 
     // Send API request to backend
@@ -248,17 +336,51 @@ class InputFields extends React.Component {
     }).catch((e) => {
       console.log(e);
     });*/
+
+    // Display output
+    this.handleOutput();
   }
 
-  handleOpenSnackbarFail = () => {
+  handleOutput() {
+    // Temporary: will remove
+
+    if (this.props.selectedModel.output_type === "list_vals") {
+      this.setState({
+        output: [ "Sample Output 1", "Sample Output 2", "Sample Output 3"]
+      });
+    } else if (this.props.selectedModel.output_type === "list_tups") {
+      this.setState({
+        output: [["Class Name 1", "Class Description 1", 57],
+                  ["Class Name 2", "Class Description 2", 24],
+                  ["Class Name 3", "Class Description 3", 43],
+                  ["Class Name 4", "Class Description 4", 53],
+                  ["Class Name 5", "Class Description 5", 85],
+                  ["Class Name 6", "Class Description 6", 46],
+                  ["Class Name 7", "Class Description 7", 36],
+                  ["Class Name 8", "Class Description 8", 62],
+                  ["Class Name 9", "Class Description 9", 53],
+                  ["Class Name 10", "Class Description 10", 74],
+                  ["Class Name 11", "Class Description 11", 96],
+                  ["Class Name 12", "Class Description 12", 64],
+                  ["Class Name 13", "Class Description 13", 85],
+                  ["Class Name 14", "Class Description 14", 63],
+                  ["Class Name 15", "Class Description 15", 52]
+                ]
+      });
+    } else {
+      return null;
+    }
+  }
+
+  handleOpenSnackbarFail() {
     this.setState({ openSnackbarFail: true });
   };
 
-  handleOpenSnackbarSuccess = () => {
+  handleOpenSnackbarSuccess() {
     this.setState({ openSnackbarSuccess: true });
   };
 
-  handleCloseSnackbar = (event, reason) => {
+  handleCloseSnackbar(event, reason) {
     if (reason === 'clickaway') {
       return;
     }
@@ -284,7 +406,44 @@ class InputFields extends React.Component {
       return this.decideHTMLComponent(key, classes, inputType, index);
     });
 
-    const dataInputs = generalInput.map((v, i) => <UploadComponent key={i}/>);
+    const dataInputs = generalInput.map((v, i) => <UploadComponent key={i} handleImageUpload={this.handleImageUpload} handleImageDelete={this.handleImageDelete}/>);
+
+    var output = null;
+    if (this.props.selectedModel.output_type === "list_vals" && this.state.output !== null) {
+      output = (
+        <form className={classes.container} noValidate autoComplete="off">
+          {
+            this.state.output.map((val, index) => {
+              return (
+                <TextField
+                  key={index}
+                  id="outlined-full-width"
+                  label={`Output ${index + 1}:`}
+                  style={{ margin: 8 }}
+                  value={val}
+                  multiline
+                  fullWidth
+                  margin="normal"
+                  variant="outlined"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                />
+              )
+            })
+          }
+        </form>
+      );
+    } else if (this.props.selectedModel.output_type === "list_tups" && this.state.output !== null) {
+      output = (
+        <OutputTable output={this.state.output}/>
+      );
+    } else {
+      output = null;
+    }
 
     return (
       <div>
@@ -300,31 +459,7 @@ class InputFields extends React.Component {
       <br />
 
       {/* Output below */}
-      <form className={classes.container} noValidate autoComplete="off">
-        {
-          this.state.output.map((val, index) => {
-            return (
-              <TextField
-                key={index}
-                id="outlined-full-width"
-                label={`Output ${index + 1}:`}
-                style={{ margin: 8 }}
-                value={val}
-                multiline
-                fullWidth
-                margin="normal"
-                variant="outlined"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            )
-          })
-        }
-      </form>
+      {output}
 
       {/* Snackbars */}
       <div>
@@ -337,7 +472,7 @@ class InputFields extends React.Component {
           autoHideDuration={3000}
           onClose={this.handleCloseSnackbar}
         >
-          <MySnackbarContentWrapper
+          <SubmitAlert
             onClose={this.handleCloseSnackbar}
             variant="error"
             message="Please fill in all the fields."
@@ -352,14 +487,13 @@ class InputFields extends React.Component {
           autoHideDuration={3000}
           onClose={this.handleCloseSnackbar}
         >
-          <MySnackbarContentWrapper
+          <SubmitAlert
             onClose={this.handleCloseSnackbar}
             variant="success"
             message="Successully submitted data!"
           />
         </Snackbar>
       </div>
-
       </div>
     );
   }
