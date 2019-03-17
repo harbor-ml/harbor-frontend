@@ -280,8 +280,18 @@ class InputFields extends React.Component {
     }
   }
 
-  handleImageDelete() {
-
+  handleImageDelete(index) {
+    if (this.state.Data === "data" || this.state.Data === null) {
+      this.setState({
+        Data: []
+      });
+    } else {
+      var tempNewData = this.state.Data;
+      tempNewData.splice(index, 1);
+      this.setState({
+        Data: tempNewData
+      });
+    }
   }
 
   submit(event) {
@@ -296,14 +306,14 @@ class InputFields extends React.Component {
 
     // Form validation
     for (var field in params) {
-      if (params[field] === this.props.selectedModel.params[field] || params[field] === "") {
+      if (params[field] === this.props.selectedModel.params[field] || params[field] === "" || (params[field] && params[field].constructor === Array && params[field].length === 0)) {
         console.log("Error: fields not filled: " + field);
         this.handleOpenSnackbarFail();
         return null;
       }
     }
     //console.log(this.state);
-    console.log(JSON.stringify(params));
+    //console.log(JSON.stringify(params));
     this.handleOpenSnackbarSuccess();
 
     // Send API request to backend
