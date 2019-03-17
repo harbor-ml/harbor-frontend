@@ -11,6 +11,7 @@ import Checkboxes from './Checkboxes'
 const styles = theme => ({
   root: {
     width: '25%',
+    marginRight: "16px"
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
