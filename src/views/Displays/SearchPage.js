@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import OptionComponent from '../Components/OptionComponent';
-
+import SearchBar from '../Components/SearchBar';
 /*
 
 function ____() {
@@ -33,7 +33,10 @@ class Search extends Component {
 
   render() {
     return (
-        <OptionComponent/>
+        <div>
+        <SearchBar/>
+        <OptionComponent/> 
+        </div>
     );
   }
 }
