@@ -61,18 +61,20 @@ class UploadComponent extends React.Component {
     let file = e.target.files[0];
 
     reader.onloadend = () => {
-      console.log(reader.result);
+      //console.log(reader.result);
+      this.props.handleImageUpload(reader.result);
       this.setState({
         files: [...this.state.files, {
           file: reader.result
         }]
-      })
+      });
     }
 
     reader.readAsDataURL(file)
   }
 
   deleteData(file) {
+    this.props.handleImageDelete(file.file);
     this.setState({
       files: this.state.files.filter((val) => {
         return val !== file
