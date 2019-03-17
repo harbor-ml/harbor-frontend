@@ -280,16 +280,17 @@ class InputFields extends React.Component {
     }
   }
 
-  handleImageDelete(index) {
+  handleImageDelete(file) {
     if (this.state.Data === "data" || this.state.Data === null) {
       this.setState({
         Data: []
       });
     } else {
-      var tempNewData = this.state.Data;
-      tempNewData.splice(index, 1);
+      var newData = this.state.Data.filter((val) => {
+        return val !== file
+      });
       this.setState({
-        Data: tempNewData
+        Data: newData
       });
     }
   }
