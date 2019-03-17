@@ -66,7 +66,8 @@ class UploadComponent extends React.Component {
         files: [...this.state.files, {
           file: reader.result
         }]
-      })
+      });
+      this.props.handleImageUpload(reader.result);
     }
 
     reader.readAsDataURL(file)

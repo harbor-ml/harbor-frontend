@@ -209,6 +209,8 @@ class InputFields extends React.Component {
     this.handleOpenSnackbarFail = this.handleOpenSnackbarFail.bind(this);
     this.handleCloseSnackbar = this.handleCloseSnackbar.bind(this);
     this.handleOutput = this.handleOutput.bind(this);
+    this.handleImageUpload = this.handleImageUpload.bind(this);
+    this.handleImageDelete = this.handleImageDelete.bind(this);
 
     this.state = {
       ...this.props.selectedModel.params,
@@ -261,13 +263,29 @@ class InputFields extends React.Component {
   handleChange(name) {
     return (event) => {
       this.setState({
-        ...this.state,
-        [name]: event.target.value,
+        [name]: event.target.value
       });
     };
   }
 
+  handleImageUpload(newFile) {
+    if (this.state.Data === "data" || this.state.Data === null) {
+      this.setState({
+        Data: [newFile]
+      });
+    } else {
+      this.setState({
+        Data: [...this.state.Data, newFile]
+      });
+    }
+  }
+
+  handleImageDelete() {
+
+  }
+
   submit(event) {
+    console.log(this.state)
     if (this.state.url === "") {
       console.log("Error: no URL");
       return null;
@@ -312,7 +330,7 @@ class InputFields extends React.Component {
     this.handleOutput();
   }
 
-  handleOutput = () => {
+  handleOutput() {
     // Temporary: will remove
 
     if (this.props.selectedModel.output_type === "list_vals") {
@@ -343,15 +361,15 @@ class InputFields extends React.Component {
     }
   }
 
-  handleOpenSnackbarFail = () => {
+  handleOpenSnackbarFail() {
     this.setState({ openSnackbarFail: true });
   };
 
-  handleOpenSnackbarSuccess = () => {
+  handleOpenSnackbarSuccess() {
     this.setState({ openSnackbarSuccess: true });
   };
 
-  handleCloseSnackbar = (event, reason) => {
+  handleCloseSnackbar(event, reason) {
     if (reason === 'clickaway') {
       return;
     }
@@ -377,7 +395,7 @@ class InputFields extends React.Component {
       return this.decideHTMLComponent(key, classes, inputType, index);
     });
 
-    const dataInputs = generalInput.map((v, i) => <UploadComponent key={i}/>);
+    const dataInputs = generalInput.map((v, i) => <UploadComponent key={i} handleImageUpload={this.handleImageUpload} handleImageDelete={this.handleImageDelete}/>);
 
     var output = null;
     if (this.props.selectedModel.output_type === "list_vals" && this.state.output !== null) {
