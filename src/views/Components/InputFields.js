@@ -229,25 +229,7 @@ class InputFields extends React.Component {
     console.log(JSON.stringify(params));
     this.handleOpenSnackbarSuccess();
 
-    // Send API request to backend
-    /*axios({
-        method: 'post',
-        url: url,
-        headers: {
-          "Content-Type": "application/json"
-        },
-        data: {
-          "input": "{\"text\": \"trump says hi\", \"num_words\": 50, \"num_tries\": 3}"
-        }
-    }).then((response) => {
-      console.log(response);
-      this.setState({
-        ...this.state,
-        output: response.data.output
-      })
-    }).catch((e) => {
-      console.log(e);
-    });*/
+    // Send API request to backend using axios action
   }
 
   handleOpenSnackbarFail = () => {
