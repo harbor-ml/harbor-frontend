@@ -23,6 +23,8 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+
+import {getData} from '../../redux/actions';
 //import axios from 'axios';
 //import MenuItem from '@material-ui/core/MenuItem';
 
@@ -318,7 +320,7 @@ class InputFields extends React.Component {
     this.handleOpenSnackbarSuccess();
 
     // Send API request to backend
-    /* Use a action method to do api request */
+    /* Use a action method to do api request with getData */
 
     // Display output
     this.handleOutput();
@@ -491,5 +493,5 @@ const mapStateToProps = state => {
     selectedModel: state.selectedModel
   };
 };
-
-export default connect(mapStateToProps)(withStyles(styles)(InputFields));
+const functions = {getData};
+export default connect(mapStateToProps, functions)(withStyles(styles)(InputFields));

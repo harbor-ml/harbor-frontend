@@ -3,7 +3,8 @@ import {
   SET_SEL_MODEL,
   SET_LOADED,
   SET_LOADED_W_SET_SEL,
-  RECEIVED_DATA
+  RECEIVED_MODEL_DATA,
+  SEARCH_QUERY
 } from './actions';
 
 const initialState = {
@@ -38,10 +39,15 @@ export default function reducer(state = initialState, action) {
         ...state,
         selectedModel: action.model
       }
-    case RECEIVED_DATA:
+    case RECEIVED_MODEL_DATA:
       return {
         ...state,
         data: action.data
+      }
+    case SEARCH_QUERY:
+      return {
+        ...state,
+        models: [...state.models, ...action.models]
       }
     default:
       return state;

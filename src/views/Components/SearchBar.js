@@ -30,10 +30,13 @@ const styles = {
 
 function SearchBar(props) {
   const { classes } = props;
+  const { searchFunc } = props;
 
   return (
     <Paper className={classes.root} elevation={1}>
-      <InputBase className={classes.input} placeholder="Enter model name" />
+      <InputBase className={classes.input}
+                 onChange={(e) => searchFunc("searchText", e.target.value)}
+                 placeholder="Enter model name" />
       <IconButton className={classes.iconButton} aria-label="Search">
         <SearchIcon />
       </IconButton>

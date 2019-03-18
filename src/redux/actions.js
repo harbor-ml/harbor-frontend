@@ -4,7 +4,8 @@ export const GET_MODELS = "GET_MODELS";
 export const SET_SEL_MODEL = "SEL_MODEL";
 export const SET_LOADED = "SET_LOADED";
 export const SET_LOADED_W_SET_SEL = "SET_LOADED_W_SET_SEL";
-export const RECEIVED_DATA = "RECEIVED_DATA";
+export const RECEIVED_MODEL_DATA = "RECEIVED_MODEL_DATA";
+export const SEARCH_QUERY = "SEARCH_QUERY";
 
 function handleInitialLoad(models) {
   if (models === undefined || models === null) {
@@ -51,8 +52,18 @@ function handleReceivedData(data) {
     data = [];
   }
   return {
-    type: RECEIVED_DATA,
+    type: RECEIVED_MODEL_DATA,
     data
+  }
+}
+
+function handleSearchQuery(models) {
+  if (models === undefined || models === null) {
+    models = [];
+  }
+  return {
+    type: SEARCH_QUERY,
+    models
   }
 }
 
@@ -134,16 +145,44 @@ export function getData(model_id, version, query) {
     //   data: query
     // }).then((response) => {
     //   console.log(response);
-    //   dispatch(handleReceivedData(query.data))
+    //   dispatch(handleReceivedData(response.data))
     // }).catch((e) => {
     //   console.log(e);
     // });
+
+    dispatch(handleReceivedData(null))
   }
 }
 
 export function selectModel(model) {
   return dispatch => {
     dispatch(handleSelectedModel(model));
+  }
+}
+
+export function searchQuery(name=[], category=[]) {
+  return dispatch => {
+    console.log("searchQuery called");
+  // GET request for models based off of search done here
+
+  // axios({
+  //   method: 'get',
+  //   url: `${BACKEND_URL}/api/models/`,
+  //   headers: {
+  //     "Content-Type": "application/json"
+  //   },
+  //   data: {name, category}
+  // }).then((response) => {
+  //   console.log(response);
+  //
+  //   possible cleaning needed to be done per model
+  //
+  //   dispatch(handleSearchQuery(response.data))
+  // }).catch((e) => {
+  //   console.log(e);
+  // })
+
+    dispatch(handleSearchQuery(null));
   }
 }
 
@@ -165,9 +204,9 @@ export function getModels(id=null) {
     // }).then((response) => {
     //   console.log(response);
     //
-    //   possible cleaning needing to be per model
+    //   possible cleaning needing to be done per model
     //
-    //   dispatch(query.data)
+    //   dispatch(response.data)
     // }).catch((e) => {
     //   console.log(e);
     // });

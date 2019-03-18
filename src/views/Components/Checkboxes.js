@@ -29,17 +29,16 @@ class Checkboxes extends React.Component {
     }
   }
 
-  handleChange(name) {
-    return (event) => {
-      this.setState({
-        ...this.state,
-        [name]: event.target.checked,
-      });
-    };
+  handleChange(name, event) {
+    this.setState({
+      ...this.state,
+      [name]: event.target.checked,
+    });
   }
 
   render() {
     //const { classes } = this.props;
+    const { searchFunc } = this.props;
 
     const controls = this.props.customLabels.map((val, index) => {
       return (
@@ -47,7 +46,10 @@ class Checkboxes extends React.Component {
           control={
             <Checkbox
               checked={this.state.val}
-              onChange={this.handleChange(val)}
+              onChange={(e) => {
+                searchFunc(val, e.target.checked);
+                this.handleChange(val, e);
+              }}
               color="primary"
             />
           }

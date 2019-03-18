@@ -10,8 +10,7 @@ import Checkboxes from './Checkboxes'
 
 const styles = theme => ({
   root: {
-    width: '25%',
-    marginRight: "16px"
+    width: '100%'
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
@@ -21,14 +20,19 @@ const styles = theme => ({
 
 const OptionComponent = (props) => {
   const { classes } = props;
+  const { searchFunc } = props;
   return (
     <div className={classes.root}>
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Discrminative Models</Typography>
+          <Typography className={classes.heading}>
+            Discrminative Models
+          </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-        <Checkboxes customLabels={['Vision Classification', 'Vision Detection']}/>
+        <Checkboxes
+          searchFunc={searchFunc}
+          customLabels={['Vision Classification', 'Vision Detection']}/>
         </ExpansionPanelDetails>
       </ExpansionPanel>
       <ExpansionPanel>
@@ -36,7 +40,9 @@ const OptionComponent = (props) => {
           <Typography className={classes.heading}>Generative Models</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <Checkboxes customLabels={['Text Generation', 'Image Generation', 'Audio Generation']}/>
+          <Checkboxes
+            searchFunc={searchFunc}
+            customLabels={['Text Generation', 'Image Generation', 'Audio Generation']}/>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>
