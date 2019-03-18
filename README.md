@@ -1,4 +1,4 @@
-# Harbor ![harbor-graphic](./documentation/assets/anchor.png)
+# Harbor 
 Repository for Harbor
 
 ## Overview of Project:
