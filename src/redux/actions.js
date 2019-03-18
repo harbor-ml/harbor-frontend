@@ -162,6 +162,7 @@ export function selectModel(model) {
 
 export function searchQuery(name=[], category=[]) {
   return dispatch => {
+    console.log("searchQuery called");
   // GET request for models based off of search done here
 
   // axios({

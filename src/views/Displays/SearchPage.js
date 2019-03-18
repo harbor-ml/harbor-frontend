@@ -46,7 +46,7 @@ class Search extends Component {
   	this.editStateOptions = this.editStateOptions.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
   	this.state = {
-  		option1: "", option2: "", option3: "", searchText: "", search: {}
+  		options: [], searchText: ""
   	};
   }
 
@@ -62,25 +62,28 @@ class Search extends Component {
   }
 
   submitSearch() {
-    const searchQuery = this.state.searchText.split(/[\s,-.]+/);
+    const name = this.state.searchText.split(/[\s,-.]+/);
     // will do api call to backend with array of names and array of categories
     // basically just pass in the same array to both name and category
-
+    const categories = [...this.state.option1, ...this.state.option2];
+    this.props.searchQuery(name, categories);
   }
 
   editStateOptions(optionName, optionValue) {
   	var newState = {...this.state};
-    if (optionName === "search") {
-      const keyList = optionValue.split(/[\s,-.]+/);
-      var newOptionValue = {}
-      keyList.forEach((val) => {
-        newOptionValue[val] = val
-      });
-      newState[optionName] = newOptionValue
+    if (optionName !== "searchText") {
+      if (!optionValue) {
+        newState.options = newState.options.filter((val) => {
+          console.log(val !== optionName);
+          return val !== optionName
+        });
+      } else if (!newState.options.includes(optionName)) {
+        newState.options.push(optionName);
+      }
     } else {
       newState[optionName] = optionValue;
     }
-  	this.setState(newState);
+    this.setState(newState);
   }
 
   render() {
@@ -88,10 +91,28 @@ class Search extends Component {
     const { classes } = this.props;
     var modelsToRender = this.props.models
 
-    if (this.state.search.length > 0) {
+    if (this.state.searchText.length > 0 || this.state.options.length > 0) {
       modelsToRender = this.props.models.filter((val) => {
-        return this.state.search[val.title]
+        var includes = false
+        if (this.state.searchText.length === 0) {
+          return true
+        }
+        this.state.searchText.split(/[\s,-.]+/).forEach((searchVal) => {
+          val.title.split(/[\s,-.]+/).forEach((titleVal) => {
+            if (titleVal.toLowerCase() === searchVal.toLowerCase()) {
+              includes = this.state.options.length > 0 ?
+                            this.state.options.includes(val.category) : true;
+            }
+          });
+        });
+        return includes
       });
+
+      console.log("filter on category");
+      modelsToRender = modelsToRender.filter((val) => {
+        const { options } = this.state;
+        return options.includes(val.category) || options.length === 0;
+      })
     }
 
     const renderedModels = modelsToRender.map( (val, index) =>
@@ -120,9 +141,12 @@ class Search extends Component {
         <div>
         <SearchBar searchFunc={this.editStateOptions} />
         <div style={{display: "flex", flexDirection: "row"}}>
-          <div style={{width: "20%", marginRight: "16px"}}>
+          <div style={{width: "25%", marginRight: "16px"}}>
             <OptionComponent searchFunc={this.editStateOptions} />
-            <Button onClick={this.submitSearch} variant="outlined" color="span" className={classes.button}>
+            <Button onClick={this.submitSearch}
+                    variant="outlined"
+                    component="span"
+                    className={classes.button}>
               Search
             </Button>
           </div>
