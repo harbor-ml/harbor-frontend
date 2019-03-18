@@ -1,4 +1,4 @@
-# Harbor 
+# Harbor
 Repository for Harbor
 
 ## Overview of Project:
@@ -27,11 +27,19 @@ is described below:
 ![harbor-gif-v1](./documentation/assets/harbor-gif-v1.gif)
 
 ## Instructions:
-
 - If you don't have node and/or npm installed, do that first.
 - To set up locally, clone the repo and in terminal enter `npm install`
 - If you run into any dependency errors, we can deal with them later (not a big deal)
 - Enter `npm start` and then play around with it!
+
+## Deployment Instruction:
+- `sudo chmod 400 harbor-frontend-pem.txt`
+- `ssh -i harbor-frontend.pem.txt ubuntu@{IP_ADDRESS}`
+- `tmux`
+- `git pull origin master` just in case you want to get updated code
+- `npm run build`
+- `serve -s build`
+- Control+C for killing the server on tmux session
 
 ## Technology Used/Purposes:
 - React: Dynamic website capabilities
