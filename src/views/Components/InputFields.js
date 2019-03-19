@@ -298,7 +298,7 @@ class InputFields extends React.Component {
   }
 
   submit(event) {
-    console.log(this.state)
+    //console.log(this.state)
     if (this.state.url === "") {
       console.log("Error: no URL");
       return null;
@@ -310,7 +310,7 @@ class InputFields extends React.Component {
     // Form validation
     for (var field in params) {
       if (params[field] === this.props.selectedModel.params[field] || params[field] === "" || (params[field] && params[field].constructor === Array && params[field].length === 0)) {
-        console.log("Error: fields not filled: " + field);
+        //console.log("Error: fields not filled: " + field);
         this.handleOpenSnackbarFail();
         return null;
       }

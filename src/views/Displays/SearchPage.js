@@ -74,7 +74,7 @@ class Search extends Component {
     if (optionName !== "searchText") {
       if (!optionValue) {
         newState.options = newState.options.filter((val) => {
-          console.log(val !== optionName);
+          //console.log(val !== optionName);
           return val !== optionName
         });
       } else if (!newState.options.includes(optionName)) {
@@ -87,7 +87,7 @@ class Search extends Component {
   }
 
   render() {
-    console.log(this.state);
+    //console.log(this.state);
     const { classes } = this.props;
     var modelsToRender = this.props.models
 
@@ -108,7 +108,7 @@ class Search extends Component {
         return includes
       });
 
-      console.log("filter on category");
+      //console.log("filter on category");
       modelsToRender = modelsToRender.filter((val) => {
         const { options } = this.state;
         return options.includes(val.category) || options.length === 0;
