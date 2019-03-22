@@ -224,7 +224,7 @@ class InputFields extends React.Component {
   }
 
   decideHTMLComponent(param, classes, inputType, key) {
-    if (inputType === "text") {
+    if (inputType === "String") {
       return (
         <TextField
           key={key}
@@ -381,17 +381,22 @@ class InputFields extends React.Component {
     const modelParams = this.props.selectedModel.params;
     var generalInput = [];
 
-    const paramInputs = Object.keys(modelParams).map((key, index) => {
-      var inputType = modelParams[key];
-      if (inputType !== "text" && inputType !== "number") {
+    const paramInputs = modelParams.map((val, index) => {
+      if (val.paramType !== "String" && val.paramType !== "number") {
           generalInput.push({
-            [key]: inputType
+            [val.paramName]: val.paramType
           });
       }
-      return this.decideHTMLComponent(key, classes, inputType, index);
+      return this.decideHTMLComponent(val.paramName, classes, val.paramType, index);
     });
 
-    const dataInputs = generalInput.map((v, i) => <UploadComponent key={i} handleImageUpload={this.handleImageUpload} handleImageDelete={this.handleImageDelete}/>);
+    const dataInputs = generalInput.map((v, i) => {
+      return (
+        <UploadComponent key={i}
+                         handleImageUpload={this.handleImageUpload}
+                         handleImageDelete={this.handleImageDelete}/>
+      )
+    });
 
     var output = null;
     if (this.props.selectedModel.output_type === "list_vals" && this.state.output !== null) {

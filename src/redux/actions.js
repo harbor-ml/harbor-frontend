@@ -1,4 +1,5 @@
 import {initialModels} from './initialModels';
+import axios from 'axios';
 
 export const GET_MODELS = "GET_MODELS";
 export const SET_SEL_MODEL = "SEL_MODEL";
@@ -6,6 +7,8 @@ export const SET_LOADED = "SET_LOADED";
 export const SET_LOADED_W_SET_SEL = "SET_LOADED_W_SET_SEL";
 export const RECEIVED_MODEL_DATA = "RECEIVED_MODEL_DATA";
 export const SEARCH_QUERY = "SEARCH_QUERY";
+
+const BACKEND_URL = "https://api.modelzoo.live"
 
 function handleInitialLoad(models) {
   if (models === undefined || models === null) {
@@ -69,68 +72,25 @@ function handleSearchQuery(models) {
 
 export function initialLoad() {
   return dispatch => {
-    // GET request for model info done here
-
-    // axios({
-    //   method: 'get',
-    //   url: `${BACKEND_URL}/api/popular`,
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   data: {
-    //     count: 5,
-    //     start_rank: 0,
-    //     metric: "requests"
-    //   }
-    // }).then((response) => {
-    //   console.log(response);
-    //
-    //   possible cleaning needing to be per model
-    //
-    //   dispatch(query.data)
-    // }).catch((e) => {
-    //   console.log(e);
-    // });
-
-    dispatch(handleInitialLoad(initialModels));
+    axios.get(`${BACKEND_URL}/models/popular/`).then((response) => {
+      dispatch(handleInitialLoad(response.data.models));
+    }).catch((e) => {
+      console.log(e);
+    });
   };
 }
 
 export function initialLoadWithSelection(id) {
   return dispatch => {
-    // GET request for model info done here
+    // We will eventually edit this method with batch Promise fulfillment
 
-    // let getPopulars = axios({
-    //   method: 'get',
-    //   url: `${BACKEND_URL}/api/popular/`,
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   data: {
-    //     count: 5,
-    //     start_rank: 0,
-    //     metric: "requests"
-    //   }
-    // })
-    //
-    // let getSelection = axios({
-    //  method: 'get',
-    //  url: `${BACKEND_URL}/api/model/`,
-    //  data: {id}
-    // })
-    //
-    // Promise.all([getSelection, getPopulars]).then((response) => {
-    //   console.log(response);
-    //
-    //   possible cleaning needing to be per model
-    //
-    //   dispatch(query.data)
-    // }).catch((e) => {
-    //   console.log(e);
-    // });
-
-    var selectedModel = initialModels.filter((val) => val.id === id)[0];
-    dispatch(handleInitialLoadWithSelection(initialModels, selectedModel));
+    axios.get(`${BACKEND_URL}/models/popular/`).then((response) => {
+      var responseModels = response.data.models;
+      var selectedModel = responseModels.filter((val) => val.id === id)[0];
+      dispatch(handleInitialLoadWithSelection(responseModels, selectedModel));
+    }).catch((e) => {
+      console.log(e);
+    });
   }
 }
 
