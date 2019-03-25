@@ -5,9 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import Typography from '@material-ui/core/Typography';
 import Grow from '@material-ui/core/Grow';
 
@@ -96,26 +93,25 @@ class Search extends Component {
   render() {
     //console.log(this.state);
     const { classes } = this.props;
-    var modelsToRender = this.props.models
+    var modelsToRender = this.props.models;
 
     if (this.state.searchText.length > 0 || this.state.options.length > 0) {
       modelsToRender = this.props.models.filter((val) => {
-        var includes = false
         if (this.state.searchText.length === 0) {
           return true
         }
-        this.state.searchText.split(/[\s,-.]+/).forEach((searchVal) => {
-          val.title.split(/[\s,-.]+/).forEach((titleVal) => {
-            if (titleVal.toLowerCase() === searchVal.toLowerCase()) {
-              includes = this.state.options.length > 0 ?
-                            this.state.options.includes(val.category) : true;
-            }
-          });
-        });
-        return includes
+
+        var searchTextTemp = this.state.searchText.toUpperCase();
+        var modelTitle = val.title.toUpperCase();
+
+        if (modelTitle.includes(searchTextTemp)) {
+          return true
+        } else {
+          return false
+        }
       });
 
-      //console.log("filter on category");
+      // Filter on category
       modelsToRender = modelsToRender.filter((val) => {
         const { options } = this.state;
         return options.includes(val.category) || options.length === 0;
