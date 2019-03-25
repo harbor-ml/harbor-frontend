@@ -216,10 +216,17 @@ class InputFields extends React.Component {
 
     this.state = {
       ...this.props.selectedModel.params,
-      url: this.props.selectedModel.url,
       output: null,
       openSnackbarFail: false,
       openSnackbarSuccess: false
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    if(nextProps.selectedModel !== this.props.selectedModel){
+      this.setState({selectedModel: nextProps.selectedModel });
+    } else if (nextProps.data !== this.props.data) {
+      this.handleOutput(nextProps.data);
     }
   }
 
@@ -273,11 +280,11 @@ class InputFields extends React.Component {
   handleImageUpload(newFile) {
     if (this.state.Data === "data" || this.state.Data === null || this.state.Data === undefined) {
       this.setState({
-        Data: [newFile]
+        img: [newFile]
       });
     } else {
       this.setState({
-        Data: [...this.state.Data, newFile]
+        img: [...this.state.img, newFile]
       });
     }
   }
@@ -285,14 +292,14 @@ class InputFields extends React.Component {
   handleImageDelete(file) {
     if (this.state.Data === "data" || this.state.Data === null) {
       this.setState({
-        Data: []
+        img: []
       });
     } else {
-      var newData = this.state.Data.filter((val) => {
+      var newData = this.state.img.filter((val) => {
         return val !== file
       });
       this.setState({
-        Data: newData
+        img: newData
       });
     }
   }
@@ -303,58 +310,73 @@ class InputFields extends React.Component {
       console.log("Error: no URL");
       return null;
     }
+    // Bypassing for rn:
+    // const {url} = this.state;
+    // const params = _.omit(this.state, ['url', 'output']);
+    // console.log(params);
+    //
+    // // Form validation
+    // for (var field in params) {
+    //   this.props.selectedModel.params.forEach((val) => {
+    //     if (params[field] === this.props.selectedModel.params[field]
+    //         || params[field] === "" || (params[field]
+    //           && params[field].constructor === Array && params[field].length === 0)) {
+    //       //console.log("Error: fields not filled: " + field);
+    //       this.handleOpenSnackbarFail();
+    //       return null;
+    //     }
+    //   });
+    // }
 
-    //const {url} = this.state;
-    const params = _.omit(this.state, ['url', 'output']);
-
-    // Form validation
-    for (var field in params) {
-      if (params[field] === this.props.selectedModel.params[field] || params[field] === "" || (params[field] && params[field].constructor === Array && params[field].length === 0)) {
-        //console.log("Error: fields not filled: " + field);
-        this.handleOpenSnackbarFail();
-        return null;
-      }
-    }
     //console.log(this.state);
     //console.log(JSON.stringify(params));
     this.handleOpenSnackbarSuccess();
 
     // Send API request to backend
-    /* Use a action method to do api request with getData */
-
-    // Display output
-    this.handleOutput();
+    /* Use a action method to do api request with getData  */
+    if (this.state.img === null || this.state.img === undefined) {
+      return null
+    }
+    const query = {
+      "input": this.state.img
+    }
+    const {id, versions} = this.props.selectedModel
+    this.props.getData(id, versions[0], this.state.img[0]);
   }
 
-  handleOutput() {
+  handleOutput(data) {
     // Temporary: will remove
 
-    if (this.props.selectedModel.output_type === "list_vals") {
-      this.setState({
-        output: [ "Sample Output 1", "Sample Output 2", "Sample Output 3"]
-      });
-    } else if (this.props.selectedModel.output_type === "list_tups") {
-      this.setState({
-        output: [["Class Name 1", "Class Description 1", 57],
-                  ["Class Name 2", "Class Description 2", 24],
-                  ["Class Name 3", "Class Description 3", 43],
-                  ["Class Name 4", "Class Description 4", 53],
-                  ["Class Name 5", "Class Description 5", 85],
-                  ["Class Name 6", "Class Description 6", 46],
-                  ["Class Name 7", "Class Description 7", 36],
-                  ["Class Name 8", "Class Description 8", 62],
-                  ["Class Name 9", "Class Description 9", 53],
-                  ["Class Name 10", "Class Description 10", 74],
-                  ["Class Name 11", "Class Description 11", 96],
-                  ["Class Name 12", "Class Description 12", 64],
-                  ["Class Name 13", "Class Description 13", 85],
-                  ["Class Name 14", "Class Description 14", 63],
-                  ["Class Name 15", "Class Description 15", 52]
-                ]
-      });
-    } else {
-      return null;
-    }
+    this.setState({
+      output: data
+    });
+
+    // if (this.props.selectedModel.output_type === "list_vals") {
+    //   this.setState({
+    //     output: [ "Sample Output 1", "Sample Output 2", "Sample Output 3"]
+    //   });
+    // } else if (this.props.selectedModel.output_type === "list_tups") {
+    //   this.setState({
+    //     output: [["Class Name 1", "Class Description 1", 57],
+    //               ["Class Name 2", "Class Description 2", 24],
+    //               ["Class Name 3", "Class Description 3", 43],
+    //               ["Class Name 4", "Class Description 4", 53],
+    //               ["Class Name 5", "Class Description 5", 85],
+    //               ["Class Name 6", "Class Description 6", 46],
+    //               ["Class Name 7", "Class Description 7", 36],
+    //               ["Class Name 8", "Class Description 8", 62],
+    //               ["Class Name 9", "Class Description 9", 53],
+    //               ["Class Name 10", "Class Description 10", 74],
+    //               ["Class Name 11", "Class Description 11", 96],
+    //               ["Class Name 12", "Class Description 12", 64],
+    //               ["Class Name 13", "Class Description 13", 85],
+    //               ["Class Name 14", "Class Description 14", 63],
+    //               ["Class Name 15", "Class Description 15", 52]
+    //             ]
+    //   });
+    // } else {
+    //   return null;
+    // }
   }
 
   handleOpenSnackbarFail() {
@@ -399,7 +421,9 @@ class InputFields extends React.Component {
     });
 
     var output = null;
-    if (this.props.selectedModel.output_type === "list_vals" && this.state.output !== null) {
+    if (this.state.output === null || this.state.output === undefined || this.state.output.length === 0) {
+      output = null;
+    } else if (this.props.selectedModel.output_type === "list_vals" && this.state.output !== null) {
       output = (
         <form className={classes.container} noValidate autoComplete="off">
           {
@@ -495,7 +519,8 @@ InputFields.propTypes = {
 
 const mapStateToProps = state => {
   return {
-    selectedModel: state.selectedModel
+    selectedModel: state.selectedModel,
+    data: state.data
   };
 };
 const functions = {getData};

@@ -8,8 +8,8 @@ export const SET_LOADED_W_SET_SEL = "SET_LOADED_W_SET_SEL";
 export const RECEIVED_MODEL_DATA = "RECEIVED_MODEL_DATA";
 export const SEARCH_QUERY = "SEARCH_QUERY";
 
-const BACKEND_URL = "https://api.modelzoo.live"
-// const BACKEND_URL = "http://0.0.0.0:8000"
+// const BACKEND_URL = "https://api.modelzoo.live"
+const BACKEND_URL = "http://0.0.0.0:8000"
 
 function handleInitialLoad(models) {
   if (models === undefined || models === null) {
@@ -74,7 +74,7 @@ function handleSearchQuery(models) {
 export function initialLoad() {
   return dispatch => {
     axios.get(`${BACKEND_URL}/models/popular/`).then((response) => {
-      // console.log(response.data.models);
+      console.log(response.data.models);
       dispatch(handleInitialLoad(response.data.models));
     }).catch((e) => {
       console.log(e);
@@ -88,6 +88,7 @@ export function initialLoadWithSelection(id) {
 
     axios.get(`${BACKEND_URL}/models/popular/`).then((response) => {
       var responseModels = response.data.models;
+      console.log(response.data.models);
       var selectedModel = responseModels.filter((val) => val.id === id)[0];
       dispatch(handleInitialLoadWithSelection(responseModels, selectedModel));
     }).catch((e) => {
@@ -98,21 +99,27 @@ export function initialLoadWithSelection(id) {
 
 export function getData(model_id, version, query) {
   return dispatch => {
-    // axios({
-    //   method: 'post',
-    //   url: `${BACKEND_URL}/api/query`,
-    //   headers: {
-    //     "Content-Type": "application/json"
-    //   },
-    //   data: query
-    // }).then((response) => {
-    //   console.log(response);
-    //   dispatch(handleReceivedData(response.data))
-    // }).catch((e) => {
-    //   console.log(e);
-    // });
+    console.log(model_id);
+    console.log(version);
+    console.log(query.split("data:image/png;base64,"));
 
-    dispatch(handleReceivedData(null))
+    axios.post(`${BACKEND_URL}/query`, {
+      id: model_id,
+      version: version,
+      query: {
+        "input": query.split("data:image/png;base64,")[1]
+      }
+    }, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then((response) => {
+      console.log(response);
+      //dispatch(handleReceivedData(response.data))
+      dispatch(handleReceivedData(null))
+    }).catch((e) => {
+      console.log(e);
+    });
   }
 }
 

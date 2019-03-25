@@ -59,6 +59,9 @@ For example:
 - Thunk: Middleware for Redux to handle actions (see src/redux)
 - Material-UI: Solid CSS styler around React components
 
+## Critical Todos:
+- Fix Backend
+
 ## Todos:
 - Frontend
   - Define https requests and render in react webapp
