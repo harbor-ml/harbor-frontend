@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {withStyles} from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
@@ -12,7 +12,7 @@ import {initialLoadWithSelection} from '../../redux/actions';
 //import classNames from 'classnames';
 
 // will need to be changed to react to go back anywhere
-const MyLink = (props) => <Link to="/" {...props} />
+// const MyLink = (props) => <Link to={window.history.back()} {...props} />
 const styles = theme => ({
   margin: {
     margin: theme.spacing.unit,
@@ -24,9 +24,10 @@ const styles = theme => ({
 
 const CustomButton = (props) => {
   const {classes} = props;
+  const {history} = props;
   return (
     <div>
-      <Button variant="outlined" component={MyLink} size="medium" color="primary" className={classes.margin}>
+      <Button variant="outlined" onClick={() => history.goBack()} size="medium" color="primary" className={classes.margin}>
         <ChevronLeftIcon className={classes.extendedIcon} />Back
       </Button>
     </div>
@@ -37,7 +38,7 @@ CustomButton.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const ModelButton = withStyles(styles)(CustomButton);
+const ModelButton = withRouter(withStyles(styles)(CustomButton));
 
 class Model extends Component {
   constructor(props) {
@@ -76,7 +77,7 @@ class Model extends Component {
       <div>
         <ModelButton /><br/>
 				<Typography variant="h2">{model.title}</Typography><br />
-        <Typography variant="h5">{model.description}</Typography>
+        <Typography variant="h5">{model.desc}</Typography>
         <br /><Divider /><br />
         <Typography variant="h5">Demo:</Typography><br />
         <InputFields />

@@ -110,7 +110,8 @@ class UploadComponent extends React.Component {
     return (
       <div>
         <Button variant="outlined" component="label" color="default" className={classes.button}>
-          <input type="file" style={{display: "None"}} onChange={(e) => this.onUpload(e)}/>
+          <input type="file" style={{display: "None"}}
+                 onChange={(e) => this.onUpload(e)} onClick={(e) => e.target.value = null}/>
           Upload Files <CloudUploadIcon className={classes.rightIcon} />
         </Button>
         <Grid container spacing={24}>
