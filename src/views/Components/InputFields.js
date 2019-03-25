@@ -346,37 +346,35 @@ class InputFields extends React.Component {
 
   handleOutput(data) {
     // Temporary: will remove
+    if (this.props.selectedModel.output_type === "list_vals") {
+      this.setState({
+        output: [ "Sample Output 1", "Sample Output 2", "Sample Output 3"]
+      });
+    } else if (this.props.selectedModel.output_type === "list_tups") {
+      var prettyData = data.output.split(/['\-\[\],]/).filter((val) => {
+        return val.length > 0 && val !== " "
+      });
 
-    this.setState({
-      output: data
-    });
+      var tinyArr = [];
+      var bigMat = [];
+      prettyData.forEach((val, index) => {
+        if (index == 0) {
+          tinyArr = [val]
+        } else if (index % 2 == 0) {
+          tinyArr = [...tinyArr, val]
+          bigMat.push([...tinyArr])
+          tinyArr = []
+        } else {
+          tinyArr = [val]
+        }
+      });
 
-    // if (this.props.selectedModel.output_type === "list_vals") {
-    //   this.setState({
-    //     output: [ "Sample Output 1", "Sample Output 2", "Sample Output 3"]
-    //   });
-    // } else if (this.props.selectedModel.output_type === "list_tups") {
-    //   this.setState({
-    //     output: [["Class Name 1", "Class Description 1", 57],
-    //               ["Class Name 2", "Class Description 2", 24],
-    //               ["Class Name 3", "Class Description 3", 43],
-    //               ["Class Name 4", "Class Description 4", 53],
-    //               ["Class Name 5", "Class Description 5", 85],
-    //               ["Class Name 6", "Class Description 6", 46],
-    //               ["Class Name 7", "Class Description 7", 36],
-    //               ["Class Name 8", "Class Description 8", 62],
-    //               ["Class Name 9", "Class Description 9", 53],
-    //               ["Class Name 10", "Class Description 10", 74],
-    //               ["Class Name 11", "Class Description 11", 96],
-    //               ["Class Name 12", "Class Description 12", 64],
-    //               ["Class Name 13", "Class Description 13", 85],
-    //               ["Class Name 14", "Class Description 14", 63],
-    //               ["Class Name 15", "Class Description 15", 52]
-    //             ]
-    //   });
-    // } else {
-    //   return null;
-    // }
+      this.setState({
+        output: bigMat
+      });
+    } else {
+      return null;
+    }
   }
 
   handleOpenSnackbarFail() {
