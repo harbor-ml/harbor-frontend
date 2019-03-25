@@ -346,12 +346,15 @@ class InputFields extends React.Component {
 
   handleOutput(data) {
     // Temporary: will remove
+
+    console.log(data)
+
     if (this.props.selectedModel.output_type === "list_vals") {
       this.setState({
         output: [ "Sample Output 1", "Sample Output 2", "Sample Output 3"]
       });
     } else if (this.props.selectedModel.output_type === "list_tups") {
-      var prettyData = data.output.split(/['\-\[\],]/).filter((val) => {
+      var prettyData = data.output.split(/['\-\[\](),]/).filter((val) => {
         return val.length > 0 && val !== " "
       });
 
@@ -360,12 +363,12 @@ class InputFields extends React.Component {
       prettyData.forEach((val, index) => {
         if (index == 0) {
           tinyArr = [val]
-        } else if (index % 2 == 0) {
+        } else if (index % 3 == 0) {
           tinyArr = [...tinyArr, val]
           bigMat.push([...tinyArr])
           tinyArr = []
         } else {
-          tinyArr = [val]
+          tinyArr = [...tinyArr, val]
         }
       });
 
