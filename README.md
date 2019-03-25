@@ -15,6 +15,14 @@ use in their own projects. A high-level description of the details of Harbor
 is described below:
 </p>
 
+## Model Naming Conventions:
+Application names are as follows: `modelname-type-framework`
+For example:
+- `resnet50-image-classification-keras`
+- `inceptionv3-image-classification-keras`
+- `ssd-mobilenet-object-detection-tf`
+
+
 ![harbor-graphic](./documentation/assets/harbor-graphic.svg)
 
 ## v3:
