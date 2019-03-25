@@ -26,7 +26,7 @@ const OptionComponent = (props) => {
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
           <Typography className={classes.heading}>
-            Discrminative Models
+            Discriminative Models
           </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>

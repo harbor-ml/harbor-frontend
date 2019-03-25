@@ -271,7 +271,7 @@ class InputFields extends React.Component {
   }
 
   handleImageUpload(newFile) {
-    if (this.state.Data === "data" || this.state.Data === null) {
+    if (this.state.Data === "data" || this.state.Data === null || this.state.Data === undefined) {
       this.setState({
         Data: [newFile]
       });

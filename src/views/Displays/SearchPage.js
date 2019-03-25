@@ -130,7 +130,7 @@ class Search extends Component {
         <Link to={"/Model/" + val.id} style={{textDecoration: "None"}}>
           <Paper className={classes.paper}>
             <Typography variant="h4">{val.title}</Typography><br/>
-            <Typography variant="h5">{val.description}</Typography>
+            <Typography variant="h5">{val.desc}</Typography>
           </Paper>
         </Link>
       </Grid>
