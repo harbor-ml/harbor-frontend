@@ -21,13 +21,20 @@ const styles = theme => ({
   },
   gridlist: {
     width: "74%",
-    height: "80vh"
+    height: "auto",
+    maxHeight: "80vh",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    overflowX: "hidden",
+    overflowY: "scroll"
   },
   button: {
     marginTop: theme.spacing.unit,
   },
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing.unit,
     opacity: 0.9,
     color: theme.palette.text.secondary,
     height: 330,
@@ -150,12 +157,11 @@ class Search extends Component {
               Search
             </Button>
           </div>
-          <GridList spacing={16} cellHeight={330} className={classes.gridlist}>
-            <GridListTile key="Subheader" cols={2} style={{ height: 'auto' }}>
-              <ListSubheader component="div">Search Results</ListSubheader>
-            </GridListTile>
+          <Grid container direction="row" alignItems="flex-start"
+                    justify="flex-start" spacing={16}
+                    className={classes.gridlist}>
             {renderedModels}
-          </GridList>
+          </Grid>
         </div>
         </div>
     );
