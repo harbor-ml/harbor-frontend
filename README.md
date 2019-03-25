@@ -15,6 +15,14 @@ use in their own projects. A high-level description of the details of Harbor
 is described below:
 </p>
 
+## Model Naming Conventions:
+Application names are as follows: `modelname-type-framework`
+For example:
+- `resnet50-image-classification-keras`
+- `inceptionv3-image-classification-keras`
+- `ssd-mobilenet-object-detection-tf`
+
+
 ![harbor-graphic](./documentation/assets/harbor-graphic.svg)
 
 ## v3:
@@ -50,6 +58,9 @@ is described below:
     do HTTP requests in an organized manner
 - Thunk: Middleware for Redux to handle actions (see src/redux)
 - Material-UI: Solid CSS styler around React components
+
+## Critical Todos:
+- Fix Backend
 
 ## Todos:
 - Frontend
