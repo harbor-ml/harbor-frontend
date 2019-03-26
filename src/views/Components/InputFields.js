@@ -340,7 +340,7 @@ class InputFields extends React.Component {
       return null;
     }
 
-    if (this.state.img[0].startsWith("data:image/png;base64") === false) {
+    if (this.state.img[0].startsWith("data:image/png;base64") === false && this.state.img[0].startsWith("data:image/jpeg;base64") === false) {
       this.handleOpenSnackbarFail();
       return null;
     }

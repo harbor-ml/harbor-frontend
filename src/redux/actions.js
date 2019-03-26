@@ -103,7 +103,7 @@ export function getData(model_id, version, query) {
       id: model_id,
       version: version,
       query: {
-        "input": query.split("data:image/png;base64,")[1]
+        "input": query.split(";base64,")[1]
       }
     }, {
       headers: {
