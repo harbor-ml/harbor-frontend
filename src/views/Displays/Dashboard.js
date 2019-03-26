@@ -62,7 +62,7 @@ class Dashboard extends React.Component {
           <Paper className={classes.paper}>
             <Typography variant="h4">{val.title}</Typography><br/>
             <Typography style={{fontSize: "1rem"}}>
-              <p>{val.desc}</p>
+              {val.desc}
             </Typography>
           </Paper>
         </Link>
