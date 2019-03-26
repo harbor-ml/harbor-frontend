@@ -334,13 +334,22 @@ class InputFields extends React.Component {
 
     //console.log(this.state);
     //console.log(JSON.stringify(params));
+
+    if (this.state.img === null || this.state.img === undefined || this.state.img.length === 0) {
+      this.handleOpenSnackbarFail();
+      return null;
+    }
+
+    if (this.state.img[0].startsWith("data:image/png;base64") === false) {
+      this.handleOpenSnackbarFail();
+      return null;
+    }
+
     this.handleOpenSnackbarSuccess();
 
     // Send API request to backend
     /* Use a action method to do api request with getData  */
-    if (this.state.img === null || this.state.img === undefined) {
-      return null;
-    }
+
     //const query = { "input": this.state.img };
     const {id, versions} = this.props.selectedModel;
     this.props.getData(id, versions[0], this.state.img[0]);
