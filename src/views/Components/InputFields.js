@@ -309,7 +309,7 @@ class InputFields extends React.Component {
   }
 
   submit(event) {
-    console.log(this.state)
+    // console.log(this.state)
     if (this.state.url === "") {
       console.log("Error: no URL");
       return null;
@@ -362,9 +362,11 @@ class InputFields extends React.Component {
         output: [ "Sample Output 1", "Sample Output 2", "Sample Output 3"]
       });
     } else if (this.props.selectedModel.output_type === "list_tups" && this.props.selectedModel.output_attr.output_render === "table") {
-      var prettyData = data.output.split(/['\-[\](),]/).filter((val) => {
+      var prettyData = data.output.split(/['\[\](),]/).filter((val) => {
         return val.length > 0 && val !== " "
       });
+
+      console.log(data.output);
 
       var tableWidth = this.props.selectedModel.output_attr.table_width;
 
