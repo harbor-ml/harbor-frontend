@@ -88,7 +88,7 @@ export function initialLoadWithSelection(id) {
 
     axios.get(`${BACKEND_URL}/models/popular/`).then((response) => {
       var responseModels = response.data.models;
-      console.log(response.data.models);
+      //console.log(response.data.models);
       var selectedModel = responseModels.filter((val) => val.id === id)[0];
       dispatch(handleInitialLoadWithSelection(responseModels, selectedModel));
     }).catch((e) => {

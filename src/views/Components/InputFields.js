@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import UploadComponent from './UploadComponent';
-import _ from 'lodash';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import ErrorIcon from '@material-ui/icons/Error';
 import InfoIcon from '@material-ui/icons/Info';
@@ -71,15 +70,20 @@ const tableStyles = theme => ({
 function SimpleTable(props) {
   const { classes } = props;
   const { output } = props;
+  const { colNames } = props;
 
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
-            <TableCell>Class Name</TableCell>
-            <TableCell>Class Description</TableCell>
-            <TableCell align="right">Score</TableCell>
+          {colNames.map((colName, index) => {
+            if (index===colNames.length - 1) {
+              return (<TableCell align="right" key={index}>{colName}</TableCell>);
+            } else {
+              return (<TableCell component="th" key={index}>{colName}</TableCell>);
+            }
+          })}
           </TableRow>
         </TableHead>
         <TableBody>
@@ -305,7 +309,7 @@ class InputFields extends React.Component {
   }
 
   submit(event) {
-    //console.log(this.state)
+    console.log(this.state)
     if (this.state.url === "") {
       console.log("Error: no URL");
       return null;
@@ -335,35 +339,33 @@ class InputFields extends React.Component {
     // Send API request to backend
     /* Use a action method to do api request with getData  */
     if (this.state.img === null || this.state.img === undefined) {
-      return null
+      return null;
     }
-    const query = {
-      "input": this.state.img
-    }
-    const {id, versions} = this.props.selectedModel
+    //const query = { "input": this.state.img };
+    const {id, versions} = this.props.selectedModel;
     this.props.getData(id, versions[0], this.state.img[0]);
   }
 
   handleOutput(data) {
-    // Temporary: will remove
-
-    console.log(data)
-
     if (this.props.selectedModel.output_type === "list_vals") {
+      // sample output
       this.setState({
         output: [ "Sample Output 1", "Sample Output 2", "Sample Output 3"]
       });
-    } else if (this.props.selectedModel.output_type === "list_tups") {
-      var prettyData = data.output.split(/['\-\[\](),]/).filter((val) => {
+    } else if (this.props.selectedModel.output_type === "list_tups" && this.props.selectedModel.output_attr.output_render === "table") {
+      var prettyData = data.output.split(/['\-[\](),]/).filter((val) => {
         return val.length > 0 && val !== " "
       });
 
+      var tableWidth = this.props.selectedModel.output_attr.table_width;
+
       var tinyArr = [];
       var bigMat = [];
+
       prettyData.forEach((val, index) => {
-        if (index == 0) {
+        if (index % tableWidth === 0) {
           tinyArr = [val]
-        } else if (index % 3 == 0) {
+        } else if (index % tableWidth === tableWidth - 1) {
           tinyArr = [...tinyArr, val]
           bigMat.push([...tinyArr])
           tinyArr = []
@@ -452,9 +454,9 @@ class InputFields extends React.Component {
           }
         </form>
       );
-    } else if (this.props.selectedModel.output_type === "list_tups" && this.state.output !== null) {
+    } else if (this.props.selectedModel.output_type === "list_tups" && this.props.selectedModel.output_attr.output_render === "table" && this.state.output !== null) {
       output = (
-        <OutputTable output={this.state.output}/>
+        <OutputTable output={this.state.output} colNames={this.props.selectedModel.output_attr.table_columns}/>
       );
     } else {
       output = null;
