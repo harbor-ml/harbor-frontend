@@ -8,7 +8,7 @@ export const SET_LOADED_W_SET_SEL = "SET_LOADED_W_SET_SEL";
 export const RECEIVED_MODEL_DATA = "RECEIVED_MODEL_DATA";
 export const SEARCH_QUERY = "SEARCH_QUERY";
 
-//const BACKEND_URL = "https://api.modelzoo.live"
+// const BACKEND_URL = "https://api.modelzoo.live"
 const BACKEND_URL = "http://0.0.0.0:8000"
 
 function handleInitialLoad(models) {
