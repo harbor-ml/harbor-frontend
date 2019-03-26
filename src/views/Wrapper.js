@@ -58,7 +58,7 @@ class Wrapper extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" color="inherit" noWrap>
-              Harbor
+              Live Model Zoo
             </Typography>
           </Toolbar>
         </AppBar>

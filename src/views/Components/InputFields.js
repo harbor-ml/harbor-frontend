@@ -362,6 +362,7 @@ class InputFields extends React.Component {
         output: [ "Sample Output 1", "Sample Output 2", "Sample Output 3"]
       });
     } else if (this.props.selectedModel.output_type === "list_tups" && this.props.selectedModel.output_attr.output_render === "table") {
+      // eslint-disable-next-line
       var prettyData = data.output.split(/['\[\](),]/).filter((val) => {
         return val.length > 0 && val !== " "
       });
