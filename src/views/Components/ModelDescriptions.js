@@ -32,23 +32,31 @@ function ModelDescriptions(props) {
     <div className={classes.root}>
       {
         ((title) => {
-          if (title === "Resnet 50" || title === "Inception V3") {
-            return (
-              <div>
-                {topics.ML}
-                {topics.NN}
-                {topics.RNN}
-              </div>
-            )
-          } else if (title === "SSD Mobilenet") {
-            return (
-              <div>
-                {topics.ML}
-                {topics.NN}
-              </div>
-            )
-          } else {
-            return topics.ML
+          switch(title) {
+            case "Resnet 50":
+              return (
+                <div>
+                  {topics.ML}
+                  {topics.NN}
+                  {topics.RN}
+                </div>
+              )
+            case "Inception V3":
+              return (
+                <div>
+                  {topics.ML}
+                  {topics.NN}
+                </div>
+              )
+            case "SSD Mobilenet":
+              return (
+                <div>
+                  {topics.ML}
+                  {topics.NN}
+                </div>
+              )
+            default:
+              return topics.ML
           }
         })(selectedModel.title)
       }

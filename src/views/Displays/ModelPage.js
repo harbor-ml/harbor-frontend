@@ -78,7 +78,20 @@ class Model extends Component {
       <div>
         <ModelButton /><br/>
 				<Typography variant="h2">{model.title}</Typography><br />
-        <Typography variant="h5">{model.desc}</Typography>
+        <Typography variant="h5">
+          {model.desc}
+          {
+            model.title === "Inception V3" ?
+            (
+              <div>
+                <br />
+                For more information on InceptionV3, check
+                out <a href="https://arxiv.org/abs/1512.00567">this</a> paper,
+                in which it is developed.
+              </div>
+            ) : null
+          }
+        </Typography>
         <br /><Divider /><br />
         <ModelDescriptions />
         <br /><Divider /><br />

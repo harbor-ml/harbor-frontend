@@ -20,6 +20,8 @@ const styles = theme => ({
   }
 });
 
+const nn_eq1img = (<img style={{display: "inline", height: "12pt", width: "auto", transformY: -10}} src={nn_eq1} alt="nn eq1"/>);
+
 const NNpanel = props => (
     <ExpansionPanel >
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -38,14 +40,14 @@ const NNpanel = props => (
         <br/>
         Below is an example neural net:
         <br/>
-        <img src={nn_pic} alt="nn pic" />
+        <img style={{ display: "block", marginLeft: "auto", marginRight: "auto"}} src={nn_pic} alt="nn pic" />
         <br/>
         <br/>
-        In the forward pass, we compute <img src={nn_eq1} alt="nn eq1"/>. In the
-        backward pass, we compute the gradient of the objective with respect to the input -
+        In the forward pass, we compute {nn_eq1img}. In the
+        backward pass, we compute the gradient of the objective with respect to the input.
         <br/>
         <br/>
-        <img src={nn_eq2} alt="nn eq2" />
+        <img style={{ display: "block", marginLeft: "auto", marginRight: "auto"}} src={nn_eq2} alt="nn eq2" />
         </div>
       </ExpansionPanelDetails>
     </ExpansionPanel>
