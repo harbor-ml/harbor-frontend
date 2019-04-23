@@ -74,7 +74,7 @@ function handleSearchQuery(models) {
 export function initialLoad() {
   return dispatch => {
     axios.get(`${BACKEND_URL}/models/popular/`).then((response) => {
-      console.log(response.data.models);
+      //console.log(response.data.models);
       dispatch(handleInitialLoad(response.data.models));
     }).catch((e) => {
       console.log(e);

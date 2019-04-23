@@ -8,6 +8,7 @@ import Divider from '@material-ui/core/Divider';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
 import InputFields from '../Components/InputFields';
+import ModelDescriptions from '../Components/ModelDescriptions';
 import {initialLoadWithSelection} from '../../redux/actions';
 //import classNames from 'classnames';
 
@@ -78,6 +79,8 @@ class Model extends Component {
         <ModelButton /><br/>
 				<Typography variant="h2">{model.title}</Typography><br />
         <Typography variant="h5">{model.desc}</Typography>
+        <br /><Divider /><br />
+        <ModelDescriptions />
         <br /><Divider /><br />
         <Typography variant="h5">Demo:</Typography><br />
         <InputFields />

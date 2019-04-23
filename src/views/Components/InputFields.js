@@ -367,8 +367,6 @@ class InputFields extends React.Component {
         return val.length > 0 && val !== " "
       });
 
-      console.log(data.output);
-
       var tableWidth = this.props.selectedModel.output_attr.table_width;
 
       var tinyArr = [];
@@ -386,9 +384,19 @@ class InputFields extends React.Component {
         }
       });
 
-      this.setState({
-        output: bigMat
-      });
+      if (data.output === "default") {
+        var default_output = [];
+        for (var i = 0; i < tableWidth; i = i + 1) {
+          default_output = [...default_output, "No Data"]
+        }
+        this.setState({
+          output: [default_output]
+        });
+      } else {
+        this.setState({
+          output: bigMat
+        });
+      }
     } else {
       return null;
     }
