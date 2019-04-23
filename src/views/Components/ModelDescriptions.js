@@ -30,30 +30,21 @@ function ModelDescriptions(props) {
   const { classes, selectedModel } = props;
   return (
     <div className={classes.root}>
-      <ExpansionPanel className={classes.expansion}>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>More Information</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails >
-          <div className={classes.innerExpansion}>
-            {topics.ML}
-            {
-              ((title) => {
-                if (title === "Resnet 50" || title === "Inception V3") {
-                  return (
-                    <div>
-                      <br />
-                      {topics.NN}
-                      <br />
-                      {topics.RNN}
-                    </div>
-                  )
-                }
-              })(selectedModel.title)
-            }
-          </div>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
+      {
+        ((title) => {
+          if (title === "Resnet 50" || title === "Inception V3") {
+            return (
+              <div>
+                {topics.ML}
+                {topics.NN}
+                {topics.RNN}
+              </div>
+            )
+          } else {
+            return topics.ML
+          }
+        })(selectedModel.title)
+      }
     </div>
   );
 }

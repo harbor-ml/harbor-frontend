@@ -22,7 +22,7 @@ const styles = theme => ({
 });
 
 const MLpanel = props => (
-  <div className={props.classes.root}>
+
     <ExpansionPanel>
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <Typography className={props.classes.heading}>
@@ -49,7 +49,7 @@ const MLpanel = props => (
         </div>
       </ExpansionPanelDetails>
     </ExpansionPanel>
-  </div>
+  
 )
 
 MLpanel.propTypes = {

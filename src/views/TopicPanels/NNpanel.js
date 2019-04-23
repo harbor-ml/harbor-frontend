@@ -21,7 +21,6 @@ const styles = theme => ({
 });
 
 const NNpanel = props => (
-  <div className={props.classes.root} >
     <ExpansionPanel >
       <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
         <Typography className={props.classes.heading}>
@@ -50,7 +49,7 @@ const NNpanel = props => (
         </div>
       </ExpansionPanelDetails>
     </ExpansionPanel>
-  </div>
+
 )
 
 NNpanel.propTypes = {
