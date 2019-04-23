@@ -40,6 +40,13 @@ function ModelDescriptions(props) {
                 {topics.RNN}
               </div>
             )
+          } else if (title === "SSD Mobilenet") {
+            return (
+              <div>
+                {topics.ML}
+                {topics.NN}
+              </div>
+            )
           } else {
             return topics.ML
           }
