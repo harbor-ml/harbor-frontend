@@ -24,6 +24,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import {getData} from '../../redux/actions';
+import {getTextData} from '../../redux/actions';
 //import axios from 'axios';
 //import MenuItem from '@material-ui/core/MenuItem';
 
@@ -374,14 +375,21 @@ class InputFields extends React.Component {
       }
 
       this.handleOpenSnackbarSuccess();
+      const {id, versions} = this.props.selectedModel;
 
-      this.props.selectedModel.output_type = "list_vals";
-      this.handleOutput("");
+      var param = this.props.selectedModel.params[0].paramName;
+      var input = params[param];
+
+      this.props.getTextData(id, versions[0], input);
     }
   }
 
   handleOutput(data) {
-    if (this.props.selectedModel.output_type === "list_vals") {
+    if (this.props.selectedModel.output_type === "string") {
+      this.setState({
+        output: data.output
+      });
+    } else if (this.props.selectedModel.output_type === "list_vals") {
       // sample output
       this.setState({
         output: [ "Sample Output 1", "Sample Output 2", "Sample Output 3"]
@@ -500,6 +508,28 @@ class InputFields extends React.Component {
           }
         </form>
       );
+    } else if (this.props.selectedModel.output_type === "string" && this.state.output !== null) {
+      output = (
+        <form className={classes.container} noValidate autoComplete="off">
+                <TextField
+                  key={0}
+                  id="outlined-full-width"
+                  label={`Output:`}
+                  style={{ margin: 8 }}
+                  value={this.state.output}
+                  multiline
+                  fullWidth
+                  margin="normal"
+                  variant="outlined"
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  InputProps={{
+                    readOnly: true,
+                  }}
+                />
+        </form>
+      );
     } else if (this.props.selectedModel.output_type === "list_tups" && this.props.selectedModel.output_attr.output_render === "table" && this.state.output !== null) {
       output = (
         <OutputTable output={this.state.output} colNames={this.props.selectedModel.output_attr.table_columns}/>
@@ -572,5 +602,5 @@ const mapStateToProps = state => {
     data: state.data
   };
 };
-const functions = {getData};
+const functions = {getData, getTextData};
 export default connect(mapStateToProps, functions)(withStyles(styles)(InputFields));

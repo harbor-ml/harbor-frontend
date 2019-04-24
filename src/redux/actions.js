@@ -118,6 +118,27 @@ export function getData(model_id, version, query) {
   }
 }
 
+export function getTextData(model_id, version, query) {
+  return dispatch => {
+    axios.post(`${BACKEND_URL}/query`, {
+      id: model_id,
+      version: version,
+      query: {
+        "input": query
+      }
+    }, {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }).then((response) => {
+      dispatch(handleReceivedData(response.data.data))
+      //dispatch(handleReceivedData(null))
+    }).catch((e) => {
+      console.log(e);
+    });
+  }
+}
+
 export function selectModel(model) {
   return dispatch => {
     dispatch(handleSelectedModel(model));
