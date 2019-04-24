@@ -335,24 +335,49 @@ class InputFields extends React.Component {
     //console.log(this.state);
     //console.log(JSON.stringify(params));
 
-    if (this.state.img === null || this.state.img === undefined || this.state.img.length === 0) {
-      this.handleOpenSnackbarFail();
-      return null;
+    if (this.props.selectedModel.params[0].paramType==="data") {
+      if (this.state.img === null || this.state.img === undefined || this.state.img.length === 0) {
+        this.handleOpenSnackbarFail();
+        return null;
+      }
+
+      if (this.state.img[0].startsWith("data:image/png;base64") === false && this.state.img[0].startsWith("data:image/jpeg;base64") === false) {
+        this.handleOpenSnackbarFail();
+        return null;
+      }
+
+      this.handleOpenSnackbarSuccess();
+
+      // Send API request to backend
+      /* Use a action method to do api request with getData  */
+
+      //const query = { "input": this.state.img };
+      const {id, versions} = this.props.selectedModel;
+      this.props.getData(id, versions[0], this.state.img[0]);
+    } else {
+      var params = {};
+
+      for (var paramIndex in this.props.selectedModel.params) {
+        var param = this.props.selectedModel.params[paramIndex].paramName;
+        params[param] = this.state[param];
+      }
+
+      // Form validation
+      for (var field in params) {
+          if (params[field] === undefined
+              || params[field] === "" || (params[field]
+                && params[field].constructor === Array && params[field].length === 0)) {
+            //console.log("Error: fields not filled: " + field);
+            this.handleOpenSnackbarFail();
+            return null;
+          }
+      }
+
+      this.handleOpenSnackbarSuccess();
+
+      this.props.selectedModel.output_type = "list_vals";
+      this.handleOutput("");
     }
-
-    if (this.state.img[0].startsWith("data:image/png;base64") === false && this.state.img[0].startsWith("data:image/jpeg;base64") === false) {
-      this.handleOpenSnackbarFail();
-      return null;
-    }
-
-    this.handleOpenSnackbarSuccess();
-
-    // Send API request to backend
-    /* Use a action method to do api request with getData  */
-
-    //const query = { "input": this.state.img };
-    const {id, versions} = this.props.selectedModel;
-    this.props.getData(id, versions[0], this.state.img[0]);
   }
 
   handleOutput(data) {
@@ -422,6 +447,7 @@ class InputFields extends React.Component {
   };
 
   render() {
+    //console.log(this.props.selectedModel);
     const { classes } = this.props;
     const modelParams = this.props.selectedModel.params;
     var generalInput = [];
